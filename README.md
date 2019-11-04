@@ -11,7 +11,7 @@
 I will add specific features in other branches and create an PR for them (but it should never be merged) so it is easy to see the new code.
 1. User:
     1. TAGS: (login, auth cookie, redirect after successful login, cookie banner)
-    2. CODE: https://github.com/lvlsgroup/react-starter-kit/pull/1
+    2. CODE: https://github.com/lvlsgroup/react-starter-kit-light/pull/1
 
 ## EDITORS
 #### WEBSTORM SETUP
