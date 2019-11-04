@@ -1,0 +1,54 @@
+// = Color variables
+// -----------------------------
+$color-primary: #36a3f7;
+$color-primary-hover: #1683d7;
+$color-primary-disabled: #DCDCDC;
+$color-brand-yellow: #fae100;
+$color-brand-red: #d0021b;
+
+$color-brand-accent: $color-brand-yellow;
+
+$color-transparent: transparent;
+$color-transparent-darker: rgba(34, 157, 255, 0.03);
+$color-primary-lighten-1: lighten($color-primary, 5%);
+$color-secondary: #FFFFFF;
+$color-black: #000000;
+$color-white: #ffffff;
+
+$color-gray-3a: #3a3a3a;
+$color-gray-4e: #4e4e4e;
+$color-gray-e1: #e1e1e1;
+
+// Backgrounds
+$color-bg-primary: $color-white;
+$color-bg-primary-gradient-dark: linear-gradient(to top, $color-gray-3a, $color-gray-4e);
+$color-bg-primary-darken-1: darken($color-bg-primary, 20%);
+$color-bg-element-base: #ebebeb;
+$color-bg-transparent: transparent;
+
+// Overlay
+$color-overlay: rgba(0, 0, 0, 0.53);
+
+// Text
+$color-text-primary: $color-black;
+$color-text-primary-darken-1: darken($color-text-primary, 30%);
+$color-text-white: $color-white;
+$color-text-white-darken-1: darken($color-text-white, 30%);
+
+$color-text-accent-primary: $color-brand-accent;
+$color-link-primary: $color-primary;
+$color-link-dangerous: $color-brand-red;
+
+// Borders
+$color-border-primary: $color-gray-e1;
+$color-border-white: $color-white;
+$color-border-black: $color-black;
+
+// Box shadow
+$color-box-shadow-primary: rgba(18, 23, 39, 0.5);
+
+// Buttons
+$color-btn-hover: $color-brand-yellow;
+$color-btn-primary: $color-primary;
+$color-btn-danger: $color-brand-red;
+$color-btn-bg-primary: $color-primary;

@@ -1,0 +1,14 @@
+.appFrame {
+  display: flex;
+  flex-direction: column;
+  background: $color-bg-primary;
+}
+
+.mainContentBelowHeader {
+  display: flex;
+}
+
+.main {
+  display: flex;
+  flex: 1;
+}

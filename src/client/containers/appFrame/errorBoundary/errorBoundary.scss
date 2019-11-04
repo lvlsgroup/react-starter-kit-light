@@ -1,0 +1,25 @@
+.boundary {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+
+  .heading {
+    font-size: 22px;
+    font-weight: 500;
+    margin-top: 35px;
+
+    @include bpTablet() {
+      font-size: 30px;
+    }
+  }
+
+  .subHeader {
+    font-size: 14px;
+    line-height: 18px;
+    margin-top: 20px;
+
+    @include bpTablet() {
+      font-size: 16px;
+    }
+  }
+}
