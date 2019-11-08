@@ -11,4 +11,6 @@ function getBaseRequestConfig() {
   return config;
 }
 
-export { getBaseRequestConfig };
+const LOCAL_BASE_PATH = process.env.API_URL;
+
+export { getBaseRequestConfig, LOCAL_BASE_PATH };

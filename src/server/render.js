@@ -4,8 +4,11 @@ import { flushChunkNames } from 'react-universal-component/server';
 import flushChunks from 'webpack-flush-chunks';
 import { StaticRouter } from 'react-router-dom';
 import { CookiesProvider } from 'react-cookie';
+import { Provider } from 'react-redux';
+import asyncReducers from '@client/redux/asyncReducers';
 import ReactDOMServer from 'react-dom/server';
-import ContentServerService from '@server/ContentServerService';
+import LazyLoadContext from '@client/helperComponents/context/LazyLoadContext';
+import configureStore from '@client/redux/configureStore';
 import AppFrame from '../client/containers/appFrame/AppFrame';
 import { getHtml } from './views/htmlHelpers';
 import { preloadDataErrorHandler, preloadRouteData } from './renderUtils';
@@ -14,23 +17,28 @@ export default ({ clientStats }) => (req, res) => {
   const routerContext = {};
   const helmetContext = {};
 
+  const { store } = configureStore({ extraReducers: asyncReducers });
+  const lazyLoadContextValue = {
+    injectReducer: store.injectReducer,
+  };
+
   const ServerApp = () => (
     <HelmetProvider context={helmetContext}>
-      <CookiesProvider cookies={req.universalCookies}>
-        <StaticRouter location={req.url} context={routerContext}>
-          <AppFrame />
-        </StaticRouter>
-      </CookiesProvider>
+      <LazyLoadContext.Provider value={lazyLoadContextValue}>
+        <Provider store={store} key="provider">
+          <CookiesProvider cookies={req.universalCookies}>
+            <StaticRouter location={req.url} context={routerContext}>
+              <AppFrame />
+            </StaticRouter>
+          </CookiesProvider>
+        </Provider>
+      </LazyLoadContext.Provider>
     </HelmetProvider>
   );
 
-  const contentService = new ContentServerService();
-
-  preloadRouteData(req, contentService)
+  preloadRouteData(req, store)
     .then(() => {
-      const reactDomString = ReactDOMServer.renderToString(
-        contentService.withProvider(<ServerApp />)
-      );
+      const reactDomString = ReactDOMServer.renderToString(<ServerApp />);
 
       if (routerContext.url) {
         const status =
@@ -47,7 +55,7 @@ export default ({ clientStats }) => (req, res) => {
             const { styles, js, cssHash } = flushChunks(clientStats, {
               chunkNames: flushChunkNames(),
             });
-            let stateJson = JSON.stringify(contentService.getInitialState());
+            let stateJson = JSON.stringify(store.getState());
             const helmet = helmetContext.helmet;
             res.status(routerContext.status || 200).send(
               getHtml({

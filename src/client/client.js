@@ -3,9 +3,11 @@ import React from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { Router } from 'react-router-dom';
 import { CookiesProvider } from 'react-cookie';
+import { Provider } from 'react-redux';
 import { hydrate } from 'react-dom';
+import LazyLoadContext from '@client/helperComponents/context/LazyLoadContext';
 import history from '@client/shared/utils/history';
-import AppFrameProvider from '@client/context/AppFrameProvider';
+import configureStore from './redux/configureStore';
 import AppFrame from './containers/appFrame/AppFrame';
 import 'shared/styles/base.scss';
 
@@ -16,16 +18,28 @@ history.listen(() => {
   }
 });
 
+const initialState = window.__SERVER_STATE__;
+
+const { store } = configureStore({
+  initialState,
+});
+
+const lazyLoadContextValue = {
+  injectReducer: store.injectReducer,
+};
+
 const renderApp = (AppFrame) => {
   hydrate(
     <HelmetProvider>
-      <Router history={history}>
-        <AppFrameProvider data={window.__SERVER_STATE__}>
-          <CookiesProvider>
-            <AppFrame />
-          </CookiesProvider>
-        </AppFrameProvider>
-      </Router>
+      <LazyLoadContext.Provider value={lazyLoadContextValue}>
+        <Provider store={store}>
+          <Router history={history}>
+            <CookiesProvider>
+              <AppFrame />
+            </CookiesProvider>
+          </Router>
+        </Provider>
+      </LazyLoadContext.Provider>
     </HelmetProvider>,
     document.getElementById('root')
   );

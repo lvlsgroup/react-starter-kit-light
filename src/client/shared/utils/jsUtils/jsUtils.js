@@ -137,7 +137,3 @@ export function toggleArrayValue(array, value) {
 
   return array;
 }
-
-export function immutablePush(arr, newEntry) {
-  return [...arr, newEntry];
-}

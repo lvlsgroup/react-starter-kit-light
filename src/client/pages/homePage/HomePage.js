@@ -1,6 +1,5 @@
 import React from 'react';
-import themeStyles from '@client/shared/styles/theme/theme-styles.scss';
-import ReactLink from '@client/components/reactLink/ReactLink';
+import { connect } from 'react-redux';
 import styles from './homePage.scss';
 
 class HomePage extends React.Component {
@@ -8,11 +7,9 @@ class HomePage extends React.Component {
     return (
       <div className={styles.homeRoute}>
         <h1 className={styles.title}>Home page</h1>
-        <i className={themeStyles.iconHome} />
-        <ReactLink to={`/go-to-undefined`}>Not found page</ReactLink>
       </div>
     );
   }
 }
 
-export default HomePage;
+export default connect()(HomePage);

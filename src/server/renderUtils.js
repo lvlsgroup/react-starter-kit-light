@@ -33,20 +33,20 @@ const staticRoutes = routes.map((route) => {
   }
 });
 
-export function preloadRouteData(req, contentService) {
-  return Promise.all(getRoutePromises(req.url, contentService));
+export function preloadRouteData(req, store) {
+  return Promise.all(getRoutePromises(req.url, store));
 }
 
-function getRoutePromises(reqUrl, contentService) {
+function getRoutePromises(reqUrl, store) {
   const matchedRoutePromises = matchRoutes(staticRoutes, reqUrl);
 
   const routePromises = matchedRoutePromises.reduce(
     (accumPromises, { route, match }) => {
-      const sComponent = route.staticComponent;
-      if (sComponent && sComponent.loadData) {
+      const wrappedContainer = route.staticComponent.WrappedComponent;
+      if (wrappedContainer && wrappedContainer.loadData) {
         const parsedUrl = url.parse(reqUrl);
         accumPromises.push(
-          sComponent.loadData(contentService.loadToState, parsedUrl, match)
+          wrappedContainer.loadData(store.dispatch, parsedUrl, match.params)
         );
         return accumPromises;
       }

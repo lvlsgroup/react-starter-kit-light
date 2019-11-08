@@ -6,7 +6,6 @@ import { routeWithSubRoutes } from '@client/shared/utils/routerUtils/routerUtils
 import routes from '@client/pages/routes';
 import styles from './appFrame.scss';
 import ErrorBoundary from './errorBoundary/ErrorBoundary';
-import MainHeader from './mainHeader/MainHeader';
 
 const MainRouteSwitch = withRouter(() => {
   function getMainClassName() {
@@ -24,12 +23,11 @@ const MainRouteSwitch = withRouter(() => {
   );
 });
 
-class AppFrame extends React.Component {
+class AppFrame extends React.PureComponent {
   render() {
     return (
       <ErrorBoundary>
         <div className={styles.appFrame} id="app-container">
-          <MainHeader />
           <div className={styles.mainContentBelowHeader}>
             <MainRouteSwitch />
           </div>
