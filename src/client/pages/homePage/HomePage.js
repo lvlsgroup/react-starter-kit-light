@@ -7,6 +7,7 @@ class HomePage extends React.Component {
     return (
       <div className={styles.homeRoute}>
         <h1 className={styles.title}>Home</h1>
+        <h1 className={styles.title}>Home</h1>
       </div>
     );
   }
