@@ -125,6 +125,21 @@ module.exports = {
     alias: {
       '@client': path.resolve(__dirname, '..', 'src', 'client'),
       '@server': path.resolve(__dirname, '..', 'src', 'server'),
+      '@rc-lib-client': path.resolve(
+        __dirname,
+        '..',
+        'react-component-lib',
+        'src',
+        'client'
+      ),
+      '@rc-lib-components': path.resolve(
+        __dirname,
+        '..',
+        'react-component-lib',
+        'src',
+        'client',
+        'components'
+      ),
     },
   },
   plugins: [
