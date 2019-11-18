@@ -32,12 +32,15 @@ module.exports = {
     rules: [
       {
         test: /(?!.*\.test)\.js$/,
-        exclude: [/node_modules/, /__snapshots__/],
+        exclude: [
+          /node_modules\/(?!(@lvlsgroup\/react-component-lib)\/).*/,
+          /__snapshots__/,
+        ],
         use: 'babel-loader',
       },
       {
         test: /\.scss$/,
-        exclude: /node_modules/,
+        exclude: /node_modules\/(?!(@lvlsgroup\/react-component-lib)\/).*/,
         use: [
           ExtractCssChunks.loader,
           {
@@ -67,7 +70,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        include: /node_modules/,
+        include: /node_modules\/(?!(@lvlsgroup\/react-component-lib)\/).*/,
         use: [
           ExtractCssChunks.loader,
           {
@@ -107,21 +110,10 @@ module.exports = {
     alias: {
       '@client': path.resolve(__dirname, '..', 'src', 'client'),
       '@server': path.resolve(__dirname, '..', 'src', 'server'),
-      '@rc-lib-client': path.resolve(
-        __dirname,
-        '..',
-        'react-component-lib',
-        'src',
-        'client'
-      ),
-      '@rc-lib-components': path.resolve(
-        __dirname,
-        '..',
-        'react-component-lib',
-        'src',
-        'client',
-        'components'
-      ),
+      '@rc-lib-client': '@lvlsgroup/react-component-lib/src/client',
+      '@rc-lib-server': '@lvlsgroup/react-component-lib/src/server',
+      'lvlsgroup-components':
+        '@lvlsgroup/react-component-lib/src/client/components',
       'react-dom': '@hot-loader/react-dom',
     },
   },

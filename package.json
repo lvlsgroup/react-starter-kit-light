@@ -43,6 +43,7 @@
     "morgan": "1.9.1",
     "prop-types": "15.7.2",
     "react": "16.11.0",
+    "@lvlsgroup/react-component-lib": "0.0.1",
     "react-cookie": "4.0.1",
     "react-dom": "16.11.0",
     "react-helmet-async": "^1.0.4",
