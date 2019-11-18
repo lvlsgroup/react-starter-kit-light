@@ -110,7 +110,7 @@ module.exports = {
       '@server': path.resolve(__dirname, '..', 'src', 'server'),
       '@rc-lib-client': '@lvlsgroup/react-component-lib/src/client',
       '@rc-lib-server': '@lvlsgroup/react-component-lib/src/server',
-      '@lvlsgroup-components':
+      'lvlsgroup-components':
         '@lvlsgroup/react-component-lib/src/client/components',
     },
   },
