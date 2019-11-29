@@ -6,3 +6,4 @@ _localnotes
 .vscode
 .idea
 .DS_Store
+.env
