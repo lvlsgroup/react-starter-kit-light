@@ -9,6 +9,7 @@ COPY scripts ./scripts
 COPY webpack ./webpack
 COPY bin ./bin
 COPY .npmrc .
+COPY .env .
 ENV APP_PORT=3000
 ENV NODE_ENV=development
 
