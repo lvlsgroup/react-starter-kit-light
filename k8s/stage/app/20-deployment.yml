@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: stage
+  name: ???
+  labels:
+    app: ???
+    tier: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ???
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: ???
+        tier: frontend
+    spec:
+      containers:
+      - name: ???
+        image: eu.gcr.io/?????/???:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 60
