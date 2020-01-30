@@ -13,7 +13,8 @@ function getRoutePromises(reqUrl, store) {
 
   const routePromises = matchedRoutePromises.reduce(
     (accumPromises, { route, match }) => {
-      const wrappedContainer = route.staticComponent.WrappedComponent;
+      const wrappedContainer =
+        route.staticComponent && route.staticComponent.WrappedComponent;
       if (wrappedContainer && wrappedContainer.loadData) {
         const parsedUrl = url.parse(reqUrl);
         accumPromises.push(
