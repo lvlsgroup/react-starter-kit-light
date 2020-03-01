@@ -1,0 +1,73 @@
+.navLinks {
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 90;
+
+  margin-left: 80px;
+  background-color: $color-dark;
+  padding: 32px 0 40px 30px;
+
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  justify-content: center;
+
+  animation-duration: 0.2s;
+  animation-timing-function: ease-out;
+  animation-name: slideDown;
+}
+
+@keyframes slideDown {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(0); }
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  margin-top: 27px;
+  padding: 12px 0;
+  color: $color-white;
+  font-family: brandon-grotesque-bold, sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  letter-spacing: 2px;
+  font-size: 14px;
+  text-decoration: none;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  .linkText {
+    margin-left: 16px;
+  }
+
+  &.menuItemActive {
+    color: $color-black;
+    border-bottom: 1px solid $color-dark;
+  }
+}
+
+.slideUp {
+  transition-duration: 0.2s;
+  transition-property: transform;
+  transition-timing-function: ease-out;
+  transform: translateX(120%);
+}
+
+.slideDown {
+  transition-duration: 0.2s;
+  transition-property: transform;
+  transition-timing-function: ease-out;
+  transform: translateX(0%);
+}
+
+.divider {
+  border-bottom: 1px solid #EEEEEE;
+  flex: 1;
+}

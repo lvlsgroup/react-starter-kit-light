@@ -1,0 +1,75 @@
+/* Top spacing */
+.mgt8 {
+  margin-top: $mgt8;
+}
+
+.mgt16 {
+  margin-top: $mgt16;
+}
+
+.mgt24 {
+  margin-top: $mgt24;
+}
+
+.mgt48 {
+  margin-top: $mgt48;
+}
+
+.mgt56 {
+  margin-top: $mgt56;
+}
+
+.mgt80 {
+  margin-top: $mgt80;
+}
+
+/* Left spacing */
+.mgl8 {
+  margin-left: $mgl8;
+}
+
+.mgl20r {
+  margin-left: 20px;
+
+  &:first-child {
+    margin-left: 0;
+  }
+}
+
+.mgl24 {
+  margin-left: 24px;
+}
+
+.mgl30r {
+  margin-left: $mgl30;
+
+  &:first-child {
+    margin-left: 0;
+  }
+}
+
+.mgl32 {
+  margin-left: $mgl32;
+}
+
+.mgl40r {
+  margin-left: $mgl40;
+
+  &:first-child {
+    margin-left: 0;
+  }
+}
+
+/* Device helpers */
+
+.hideOnMobile {
+  @include onlyMobile() {
+    display: none !important;
+  }
+}
+
+.hideOnDesktop {
+  @include bpTablet() {
+    display: none !important;
+  }
+}

@@ -1,0 +1,43 @@
+.topMenuDesktop {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  //@include miniLabel();
+  // AND BOTTONS
+  font-family: brandon-grotesque-bold, sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  letter-spacing: 2px;
+  font-size: 14px;
+  // AND BOTTONS
+}
+
+.routeListing {
+  display: flex;
+  flex: 1;
+  list-style-type: none;
+
+  .routeLink {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    color: $color-dark;
+    text-decoration-line: none;
+    border: 1px solid $color-dark;
+    margin-left: 8px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:hover {
+      color: $color-black;
+    }
+
+    &.menuItemActive {
+      color: $color-black;
+    }
+  }
+}

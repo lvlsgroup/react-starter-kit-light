@@ -1,2 +1,88 @@
+$fixed-header-height: 60px;
 .mainHeader {
+  height: $fixed-header-height;
+}
+
+.stickyHeader {
+  background-color: white;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  width: 100%;
+  height: $fixed-header-height;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  transition: background-color 0.1s ease-out 0.4s;
+
+  &.stickyHeaderOpen {
+    background-color: #000000;
+    transition: initial;
+  }
+
+  &.stickyHeaderTransitionDark {
+    opacity: initial;
+    background-color: $color-dark;
+    transition: initial;
+  }
+
+  @include bpTablet() {
+    border-bottom: 1px solid rgba(206, 206, 206, 0.33);
+    justify-content: space-around;
+  }
+}
+
+.closeIcon {
+  @include box-sizing(content-box);
+  padding: 0 16px;
+  color: $color-black;
+  font-size: 1.2rem;
+
+  animation-duration: 0.3s;
+  animation-timing-function: linear;
+  animation-name: animateOpacity;
+
+  @include bpTablet() {
+    display: none;
+  }
+}
+
+.burgerIcon {
+  @include box-sizing(content-box);
+  padding: 0 16px;
+
+  @include bpTablet() {
+    display: none;
+  }
+}
+
+.topMenuDesktopProp {
+  display: none;
+
+  @include bpTablet() {
+    display: flex;
+  }
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 89;
+  background-color: rgba(0, 0, 0, 0.53);
+
+  animation-duration: 0.2s;
+  animation-timing-function: ease-out;
+  animation-name: animateOpacity;
+}
+
+@keyframes animateOpacity {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }

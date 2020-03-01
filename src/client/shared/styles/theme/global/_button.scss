@@ -1,0 +1,29 @@
+@mixin _includeButtonColors($bg-color, $color, $border-color) {
+  background-color: $bg-color;
+  color: $color;
+  border-color: $border-color;
+}
+
+@mixin _btn-active($bg-color, $color: initial, $border-color: initial) {
+  &:active {
+    @include _includeButtonColors($bg-color, $color, $border-color);
+  }
+}
+
+@mixin _btn-hover($bg-color, $color: initial, $border-color : initial) {
+  &:hover {
+    @include _includeButtonColors($bg-color, $color, $border-color);
+  }
+}
+
+@mixin _btn-disabled($bg-color, $color: initial, $border-color : initial) {
+  &:disabled {
+    @include _includeButtonColors($bg-color, $color, $border-color);
+  }
+}
+
+@mixin _btn-focus($outline) {
+  &:focus {
+    outline: $outline;
+  }
+}

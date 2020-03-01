@@ -1,0 +1,25 @@
+@mixin _header($color, $fontSize, $lineHeightX, $fontWeight, $mobileFontSizeScale: 0.5) {
+  $mobile-header-font-size: xResizer($fontSize, $mobileFontSizeScale);
+  font-family: $header-font;
+  font-size: $mobile-header-font-size;
+  font-weight: $fontWeight;
+  font-style: normal;
+  color: $color;
+  line-height: lineHeight($mobile-header-font-size, $lineHeightX);
+
+  @include bpTablet() {
+    font-size: $fontSize;
+  }
+}
+
+@mixin _link($fontFamily, $fontSize, $color) {
+  font-family: $fontFamily;
+  font-size: $fontSize;
+  color: $color;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.title1 {
+  @include _header($color-dark, $font-size-heading-lg, 1.2, $weight-normal);
+}

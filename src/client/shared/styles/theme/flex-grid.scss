@@ -1,0 +1,15 @@
+._sharedGrid {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  word-break: break-word;
+}
+
+.grid12 {
+  composes: _sharedGrid;
+  @include _grid(30px, 30px);
+
+  > * {
+    @include _responsiveAndFluidItem(30px, 30px, 100%, 50%, 50%, 50%, 50%);
+  }
+}

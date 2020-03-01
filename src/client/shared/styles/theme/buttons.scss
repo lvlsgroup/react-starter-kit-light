@@ -1,0 +1,41 @@
+._btn {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  border-radius: 4px;
+  padding: 0 16px;
+}
+
+.btnContained {
+  height: 46px;
+  color: $font-white;
+  background-color: $color-dark;
+
+  @extend ._btn;
+
+  @include _btn-hover($color-black, $font-white);
+  @include _btn-active($color-black, $font-white);
+  @include _btn-disabled($color-disabled, $font-light);
+  @include _btn-focus(none);
+}
+
+/** ____ Outlined Buttons ____ */
+.btnOutlined {
+  border: 1px solid $color-black;
+
+  color: $font-black;
+  background-color: $color-white;
+
+  @extend ._btn;
+
+  @include _btn-hover(#F6F6F6);
+  @include _btn-active(#F6F6F6);
+  @include _btn-focus(none);
+}
+
+.btnOutlinedSm {
+  height: 26px;
+  @extend .btnOutlined;
+}
