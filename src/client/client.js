@@ -12,9 +12,9 @@ import AppFrame from './containers/appFrame/AppFrame';
 import 'shared/styles/base.scss';
 
 // Scroll to top on history change
-history.listen((location, action) => {
+history.listen((location) => {
   if (typeof window === 'object') {
-    if (action !== 'REPLACE') {
+    if (location.state?.dontScrollToTop !== true) {
       window.scrollTo(0, 0);
     }
   }
