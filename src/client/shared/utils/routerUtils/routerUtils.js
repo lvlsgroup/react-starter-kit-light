@@ -16,9 +16,7 @@ export function routeWithSubRoutes(route, index) {
         const { Component, ...routeProperties } = route;
 
         // Pass the sub-routes down to keep nesting
-        return (
-          <Component {...props} routes={route.routes} route={routeProperties} />
-        );
+        return <Component {...props} route={routeProperties} />;
       }}
     />
   );

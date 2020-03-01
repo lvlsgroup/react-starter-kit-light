@@ -56,7 +56,10 @@ class MainHeader extends PureComponent {
           )}
         >
           <MainNavDesktop
-            className={styles.topMenuDesktopProp}
+            className={classNames(
+              styles.topMenuDesktopProp,
+              styleHelper.pageWidthAndCentralizer
+            )}
             currentPathName={this.props.location.pathname}
           />
           {this.state.mobileMenu === MOBILE_MENU_STATES.VISIBLE ? (

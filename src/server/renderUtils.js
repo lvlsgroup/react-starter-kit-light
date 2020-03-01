@@ -1,6 +1,6 @@
 import path from 'path';
 import url from 'url';
-import { matchRoutes } from 'react-router-config';
+import { matchPath } from 'react-router-dom';
 import { get500 } from '@server/views/htmlHelpers';
 import routes from '../client/pages/routes';
 
@@ -9,7 +9,9 @@ export function preloadRouteData(req, store) {
 }
 
 function getRoutePromises(reqUrl, store) {
-  const matchedRoutePromises = matchRoutes(staticRoutes, reqUrl);
+  console.log('reqUrl: ', reqUrl);
+  const matchedRoutePromises = matchMyRoutes(staticRoutes, reqUrl);
+  console.log('matchRoutes: ', matchedRoutePromises);
 
   const routePromises = matchedRoutePromises.reduce(
     (accumPromises, { route, match }) => {
@@ -43,6 +45,31 @@ export function preloadDataErrorHandler(err, res, req) {
   }
 }
 
+function matchMyRoutes(staticRoutes, reqUrl) {
+  let notFoundPage = [];
+
+  const matches = staticRoutes.reduce((accum, staticRoute) => {
+    const matched = matchPath(reqUrl, staticRoute);
+    const isNotFoundPage = staticRoute.path === '*';
+
+    if (isNotFoundPage) {
+      notFoundPage.push({ route: staticRoute, match: matched });
+      return accum;
+    } else if (matched) {
+      accum.push({ route: staticRoute, match: matched });
+      return accum;
+    } else {
+      return accum;
+    }
+  }, []);
+
+  if (matches.length > 0) {
+    return matches;
+  } else {
+    return notFoundPage;
+  }
+}
+
 // The components that we're declaring in pages.js are imported async, so we can't garantee that
 // they're loaded when we want to call loadData on the server and thus we need to import them
 // staticly/synchronously. This we do with an old-school require.
@@ -50,42 +77,11 @@ export function preloadDataErrorHandler(err, res, req) {
 const staticRoutes = routes.map((route) => {
   const staticComponent = requireStaticComponent(route);
 
-  if (route.routes) {
-    let staticChildren = getMappedRoutes(route.routes);
-
-    return {
-      staticComponent,
-      ...route,
-      routes: staticChildren,
-    };
-  } else {
-    return {
-      staticComponent,
-      ...route,
-    };
-  }
+  return {
+    staticComponent,
+    ...route,
+  };
 });
-
-function getMappedRoutes(routes) {
-  return routes.map((childRoute) => {
-    const staticComponent = requireStaticComponent(childRoute);
-
-    if (childRoute.routes) {
-      let staticChildren = getMappedRoutes(childRoute.routes);
-
-      return {
-        staticComponent,
-        ...childRoute,
-        routes: staticChildren,
-      };
-    } else {
-      return {
-        staticComponent,
-        ...childRoute,
-      };
-    }
-  });
-}
 
 function requireStaticComponent(route) {
   return require(`../client/${route.componentPath}`).default;

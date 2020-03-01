@@ -1,6 +1,7 @@
 import universal from 'react-universal-component';
 import Loader from '@client/components/loader/Loader';
 import ErrorLoadingRouteChunk from '@client/containers/errorLoadingRouteChunk/ErrorLoadingRouteChunk';
+import { ROUTES_SNX_SYNTH_SWAP } from '@client/pages/snxSynthSwapPage/routesSnxSynthSwap';
 
 const options = {
   error: ErrorLoadingRouteChunk,
@@ -23,12 +24,7 @@ export default [
     componentPath: 'pages/mintrPage/MintrPage',
     Component: universal(import('pages/mintrPage/MintrPage'), options),
   },
-  {
-    path: MAIN_ROUTES.SNX_SYNTH_SWAP.TO,
-    exact: true,
-    componentPath: 'pages/notFoundPage/NotFoundPage',
-    Component: universal(import('pages/notFoundPage/NotFoundPage'), options),
-  },
+  ...ROUTES_SNX_SYNTH_SWAP,
   {
     path: '*',
     componentPath: 'pages/notFoundPage/NotFoundPage',
@@ -40,8 +36,8 @@ export default [
 export function getMainRoutes(userRestrictions) {
   let routes = {
     DASH_BOARD: {
-      TO: '/dashboard',
-      LABEL: 'DASHBOARD',
+      TO: '/',
+      LABEL: 'HOME',
       RESTRICTIONS: {
         SHOULD_BE_LOGGED_IN: false,
       },
@@ -54,7 +50,7 @@ export function getMainRoutes(userRestrictions) {
       },
     },
     SNX_SYNTH_SWAP: {
-      TO: '/snx-exchange',
+      TO: '/snx-synth-swap',
       LABEL: 'EXCHANGE',
       RESTRICTIONS: {
         SHOULD_BE_LOGGED_IN: false,

@@ -1,0 +1,18 @@
+.snxSynthSwapPage {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.swapSynthSection {
+  display: flex;
+}
+
+.swapMenu {
+  display: flex;
+
+  .swapMenuListing {
+    display: flex;
+    list-style-type: none;
+  }
+}
