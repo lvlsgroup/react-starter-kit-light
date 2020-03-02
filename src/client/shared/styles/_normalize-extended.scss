@@ -15,7 +15,8 @@
 html {
   -ms-text-size-adjust: 100%; /* 2 */
   -webkit-text-size-adjust: 100%; /* 2 */
-}
+  font-family: $body-font;
+  background-color: #1E1A31;}
 
 html,body,h1,h2,h3,h4,h5,h6,
 p,blockquote,pre,

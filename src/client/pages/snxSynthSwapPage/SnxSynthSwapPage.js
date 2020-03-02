@@ -3,9 +3,14 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import ReactLink from '@lvlsgroup/react-component-lib/src/client/components/links/reactLink/ReactLink';
 import { Switch } from 'react-router-dom';
+import URLInput from '@lvlsgroup/react-component-lib/src/client/components/urlinputs/urlInput/UrlInput';
+import Button from '@lvlsgroup/react-component-lib/src/client/components/inputs/button/Button';
+import Flex from 'lvlsgroup-components/flex/Flex';
+import UrlSelect from '@lvlsgroup/react-component-lib/src/client/components/urlinputs/urlSelect/UrlSelect';
 import { ROUTES_SNX_SYNTH_SWAP } from '@client/pages/snxSynthSwapPage/routesSnxSynthSwap';
 import styleHelper from '@client/shared/styles/styleHelper.scss';
 import { routeWithSubRoutes } from '@client/shared/utils/routerUtils/routerUtils';
+import SnxSynthSwapHistoryRoute from '@client/pages/snxSynthSwapPage/snxSynthSwapHistoryRoute/SnxSynthSwapHistoryRoute';
 import styles from './snxSynthSwapPage.scss';
 
 const childRoutes = ROUTES_SNX_SYNTH_SWAP.slice(1);
@@ -17,21 +22,18 @@ class SnxSynthSwapPage extends React.Component {
 
   render() {
     return (
-      <div
-        className={classNames(
-          styles.snxSynthSwapPage,
-          styleHelper.pageContainer
-        )}
-      >
-        <SwapHeaderSection />
+      <div className={classNames(styles.snxSynthSwapPage)}>
         <SwapSynthSection />
-        <SwapMenu routes={childRoutes} />
-        <Switch>
-          {childRoutes &&
-            childRoutes.map((route, index) => {
-              return routeWithSubRoutes(route, index);
-            })}
-        </Switch>
+        <div
+          className={classNames(
+            styleHelper.pageWidthAndCentralizer,
+            styleHelper.mgt8,
+            styles.menuAndContentContainer
+          )}
+        >
+          <SwapMenu routes={childRoutes} />
+          <SnxSynthSwapHistoryRoute />
+        </div>
       </div>
     );
   }
@@ -39,40 +41,83 @@ class SnxSynthSwapPage extends React.Component {
 
 export default connect()(SnxSynthSwapPage);
 
-function SwapHeaderSection() {
-  return (
-    <section className={classNames(styles.swapHeaderSection)}>
-      <h1>Fast and simple way to swap synthetic assets</h1>
-    </section>
-  );
-}
-
 function SwapSynthSection() {
   return (
     <section className={classNames(styles.swapSynthSection)}>
-      <div>MINTR</div>
+      <div
+        className={classNames(
+          styles.swapSynthContainer,
+          styleHelper.pageWidthAndCentralizer
+        )}
+      >
+        <h1>Synthetic Assets Swap</h1>
+        <SwapSynth className={classNames(styleHelper.mgt16)} />
+      </div>
     </section>
   );
 }
 
-function SwapMenu({ routes }) {
+const OPTIONS = [
+  { value: 'sETH', label: 'sETH' },
+  { value: 'sBTC', label: 'sBTC' },
+  { value: 'sEUR', label: 'sEUR' },
+];
+
+const OPTIONS_2 = [
+  { value: 'sETH', label: 'sETH' },
+  { value: 'sBTC', label: 'sBTC' },
+  { value: 'sEUR', label: 'sEUR' },
+];
+
+function SwapSynth({ className }) {
   return (
-    <nav className={classNames(styles.swapMenu)}>
+    <div className={classNames(styles.swapSynth, className)}>
+      <Flex alignCenter className={classNames(styleHelper.mgt8)}>
+        <Flex className={classNames(styles.synthChooserContainer)}>
+          <UrlSelect
+            className={styles.urlSelectProp}
+            options={OPTIONS}
+            searchParam={'from'}
+          />
+          <input type="number" className={styles.inputProp} defaultValue={0} />
+        </Flex>
+        <span className={classNames(styles.synthSwapIcon)}>↔</span>
+        <Flex className={classNames(styles.synthChooserContainer)}>
+          <UrlSelect
+            className={styles.urlSelectProp}
+            options={OPTIONS_2}
+            searchParam={'to'}
+          />
+          <input type="number" className={styles.inputProp} defaultValue={0} />
+        </Flex>
+      </Flex>
+      <Flex className={classNames(styleHelper.mgt8)}>
+        <span>info</span>
+        <span>info</span>
+        <span>info</span>
+      </Flex>
+      <Button
+        className={classNames(
+          styleHelper.btnContained,
+          styleHelper.marginCenter,
+          styleHelper.mgt24
+        )}
+        label={'SWAP'}
+      />
+    </div>
+  );
+}
+
+function SwapMenu({ className, routes }) {
+  return (
+    <nav className={classNames(styles.swapMenu, className)}>
       <ul className={classNames(styles.swapMenuListing)}>
-        {routes &&
-          routes.map((route) => {
-            return (
-              <ReactLink
-                key={route.path + route.label}
-                className={styles.routeLink}
-                to={route.path}
-              >
-                <li className={styles.listItem}>
-                  <span className={styles.routeLabel}>{route.label}</span>
-                </li>
-              </ReactLink>
-            );
-          })}
+        <li className={styles.listItem}>
+          <Button label="HISTORY" />
+        </li>
+        <li className={styles.listItem}>
+          <Button label="SYNTH BALANCE" />
+        </li>
       </ul>
     </nav>
   );

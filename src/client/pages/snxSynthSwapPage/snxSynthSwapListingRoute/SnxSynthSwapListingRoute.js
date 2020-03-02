@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import Flex from '@lvlsgroup/react-component-lib/src/client/components/flex/Flex';
 import styleHelper from '@client/shared/styles/styleHelper.scss';
 import styles from './snxSynthSwapListingRoute.scss';
 
@@ -24,7 +25,10 @@ class SnxSynthSwapListingRoute extends React.PureComponent {
           styleHelper.pageWidthAndCentralizer
         )}
       >
-        <h1>LISTING</h1>
+        <Flex alignCenter>
+          <input type="checkbox" /> hide dust
+        </Flex>
+        <SwapHistory />
       </section>
     );
   }
@@ -37,3 +41,23 @@ SnxSynthSwapListingRoute.propTypes = {
 };
 
 export default connect()(SnxSynthSwapListingRoute);
+
+const ROWS = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+function SwapHistory({ className }) {
+  return (
+    <div className={styles.swapHistory}>
+      {ROWS.map((row) => {
+        return <SwapHistoryRow key={row} />;
+      })}
+    </div>
+  );
+}
+
+function SwapHistoryRow({ className }) {
+  return (
+    <Flex className={classNames(styles.swapHistoryRow, styleHelper.mgt8)}>
+      <div>hello</div>
+    </Flex>
+  );
+}

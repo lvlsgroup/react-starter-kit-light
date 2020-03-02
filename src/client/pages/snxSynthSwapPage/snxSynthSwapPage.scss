@@ -4,15 +4,74 @@
   flex: 1;
 }
 
+.menuAndContentContainer {
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 2px 4px 0px, rgba(0, 0, 0, 0.08) 0px 1px 2px 0px;
+}
+
 .swapSynthSection {
+  padding: 24px 0 24px 0;
   display: flex;
+  flex-direction: column;
+  background-color: #5641F2;
+}
+
+.swapSynthContainer {
+  width: initial;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.swapSynth {
+  padding: 24px 16px 24px 24px;
+  border-radius: 8px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 2px 4px 0px, rgba(0, 0, 0, 0.08) 0px 1px 2px 0px;
+
+  .synthChooserContainer {
+    border: 1px solid lightgray;
+  }
+
+  .synthSwapIcon {
+    margin: 0 16px;
+  }
+
+  .urlSelectProp {
+    width: 120px;
+
+    :global {
+      .dropdown_selector_inner__control {
+        border-radius: initial;
+        border: none !important;
+      }
+    }
+  }
+
+  .inputProp {
+    text-align: right;
+    margin-left: 2px;
+    width: 200px;
+    height: 44px;
+    border: none;
+    outline-width: 2px;
+  }
 }
 
 .swapMenu {
+  width: 100%;
   display: flex;
+  align-items: center;
+  height: 40px;
 
   .swapMenuListing {
     display: flex;
     list-style-type: none;
+
+    .listItem {
+      margin-left: 16px;
+    }
   }
 }

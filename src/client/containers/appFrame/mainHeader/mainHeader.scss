@@ -1,23 +1,13 @@
 $fixed-header-height: 60px;
+
 .mainHeader {
   height: $fixed-header-height;
+  display: flex;
+  background-color: #090817;
+  border-bottom: 1px solid rgba(206, 206, 206, 0.33);
 }
 
 .stickyHeader {
-  background-color: white;
-  position: fixed;
-  z-index: 100;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: $fixed-header-height;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-
-  transition: background-color 0.1s ease-out 0.4s;
-
   &.stickyHeaderOpen {
     background-color: #000000;
     transition: initial;
@@ -27,11 +17,6 @@ $fixed-header-height: 60px;
     opacity: initial;
     background-color: $color-dark;
     transition: initial;
-  }
-
-  @include bpTablet() {
-    border-bottom: 1px solid rgba(206, 206, 206, 0.33);
-    justify-content: space-around;
   }
 }
 
