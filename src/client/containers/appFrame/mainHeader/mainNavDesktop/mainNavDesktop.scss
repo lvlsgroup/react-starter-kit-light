@@ -35,8 +35,9 @@
       color: #5641f2;
     }
 
-    &.menuItemActive {
-      color: $color-black;
+    &.activeTab {
+      color: #5641f2;
+      font-weight: bold;
     }
   }
 }

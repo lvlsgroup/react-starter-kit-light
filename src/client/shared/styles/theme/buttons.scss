@@ -9,7 +9,6 @@
 }
 
 .btnContained {
-  height: 46px;
   color: $font-white;
   background-color: $color-dark;
 
@@ -19,6 +18,31 @@
   @include _btn-active($color-black, $font-white);
   @include _btn-disabled($color-disabled, $font-light);
   @include _btn-focus(none);
+}
+
+.btnContainedMd {
+  height: 46px;
+  @extend .btnContained;
+}
+
+.btnContainedMintrMd {
+  height: 46px;
+  @extend .btnContained;
+  background-color: rgb(114, 124, 255);
+  border-radius: 0;
+}
+
+.btnContainedMintrSm {
+  @extend .btnContained;
+  height: 26px;
+  background-color: rgb(114, 124, 255);
+  border-radius: 0;
+  width: 100%;
+}
+
+.btnContainedSm {
+  height: 26px;
+  @extend .btnContained;
 }
 
 /** ____ Outlined Buttons ____ */

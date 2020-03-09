@@ -47,9 +47,29 @@ app.use(errorHandler);
 // Logging Setup
 app.use(assignId);
 app.use(morgan(logFormat));
+app.use(stripTrailingChar('/'));
 // END Logging
 app.use(cookiesMiddleware());
 
 module.exports = {
   app,
 };
+
+function stripTrailingChar(char) {
+  return (req, res, next) => {
+    const url = req.originalUrl;
+    const reg = new RegExp(`${char}$`);
+
+    // For the homepage the originalUrl is / and since we can't
+    // redirect to an empty url we just move on.
+    if (url === '/') {
+      return next();
+    } else if (url.match(reg)) {
+      const newUrl = url.replace(reg, '');
+
+      return res.redirect(301, newUrl);
+    }
+
+    return next();
+  };
+}

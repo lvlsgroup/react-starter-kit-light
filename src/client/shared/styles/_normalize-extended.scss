@@ -16,7 +16,10 @@ html {
   -ms-text-size-adjust: 100%; /* 2 */
   -webkit-text-size-adjust: 100%; /* 2 */
   font-family: $body-font;
-  background-color: #1E1A31;}
+  background-color: #1E1A31;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 html,body,h1,h2,h3,h4,h5,h6,
 p,blockquote,pre,
@@ -24,7 +27,7 @@ dl,dd,
 form,
 table,th,td,caption,
 ul, ol,
-hr, figure {
+hr, figure, button {
   margin:0;
   padding:0;
 }

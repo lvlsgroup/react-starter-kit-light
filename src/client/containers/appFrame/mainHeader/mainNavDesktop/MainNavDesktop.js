@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 import ReactLink from '@lvlsgroup/react-component-lib/src/client/components/links/reactLink/ReactLink';
 import { getMainRoutes } from '@client/pages/routes';
 import styles from './mainNavDesktop.scss';
@@ -25,20 +26,39 @@ MainNavDesktop.propTypes = {
 export default MainNavDesktop;
 
 const RoutesListing = ({ className, routes }) => {
+  function isActiveOrDefaultFundraiser(currentPathname, match, location) {
+    console.log('currentPathname', currentPathname);
+    console.log('match', match);
+    console.log('location', location);
+
+    const isBasePath = location.pathname.startsWith(currentPathname);
+    if (isBasePath && currentPathname !== '/') {
+      return true;
+    } else if (match && location.pathname === '/') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   return (
     <ul className={classNames(className)}>
       {routes &&
         routes.map((route) => {
           return (
-            <ReactLink
+            <NavLink
               key={route.TO + route.LABEL}
               className={styles.routeLink}
+              activeClassName={styles.activeTab}
+              isActive={(match, location) =>
+                isActiveOrDefaultFundraiser(route.TO, match, location)
+              }
               to={route.TO}
             >
               <li className={styles.listItem}>
                 <span className={styles.routeLabel}>{route.LABEL}</span>
               </li>
-            </ReactLink>
+            </NavLink>
           );
         })}
     </ul>

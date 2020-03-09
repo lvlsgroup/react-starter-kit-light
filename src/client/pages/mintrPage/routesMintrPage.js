@@ -10,7 +10,7 @@ const options = {
 // Probably better
 export const ROUTES_SNX_SYNTH_SWAP = [
   {
-    path: `/synthetic-assets-swap/:synthPair?`,
+    path: `/mintr/:synthPair?`,
     exact: true,
     to: '/synthetic-assets-swap/seth-susd',
     label: 'EXCHANGE',

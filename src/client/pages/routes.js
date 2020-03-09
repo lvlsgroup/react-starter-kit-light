@@ -50,7 +50,7 @@ export function getMainRoutes(userRestrictions) {
       },
     },
     SNX_SYNTH_SWAP: {
-      TO: '/snx-synth-swap',
+      TO: '/synthetic-assets-swap',
       LABEL: 'EXCHANGE',
       RESTRICTIONS: {
         SHOULD_BE_LOGGED_IN: false,

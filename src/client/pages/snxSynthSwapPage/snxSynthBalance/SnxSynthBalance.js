@@ -2,11 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import Flex from '@lvlsgroup/react-component-lib/src/client/components/flex/Flex';
 import Button from '@lvlsgroup/react-component-lib/src/client/components/inputs/button/Button';
 import styleHelper from '@client/shared/styles/styleHelper.scss';
-import styles from './SnxSynthSwapHistoryRoute.scss';
+import styles from './snxSynthBalance.scss';
 
-class SnxSynthSwapHistoryRoute extends React.PureComponent {
+class SnxSynthBalance extends React.PureComponent {
   constructor(props) {
     super(props);
   }
@@ -25,19 +26,22 @@ class SnxSynthSwapHistoryRoute extends React.PureComponent {
           styleHelper.pageWidthAndCentralizer
         )}
       >
+        <Flex alignCenter>
+          <input type="checkbox" /> hide dust
+        </Flex>
         <SwapHistory />
       </section>
     );
   }
 }
 
-SnxSynthSwapHistoryRoute.propTypes = {
+SnxSynthBalance.propTypes = {
   dispatch: PropTypes.func,
   location: PropTypes.object,
   history: PropTypes.object,
 };
 
-export default connect()(SnxSynthSwapHistoryRoute);
+export default connect()(SnxSynthBalance);
 
 const ROWS = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -56,25 +60,16 @@ function SwapHistory({ className }) {
       <thead>
         <tr className={classNames(styles.tr, styles.trHeader)}>
           <th className={classNames(styles.th)}>
-            <Button className={styles.thButton} label="DATE" />
+            <Button className={styles.thButton} label="SYMBOL" />
           </th>
           <th className={classNames(styles.th)}>
-            <Button className={styles.thButton} label="SOLD" />
+            <Button className={styles.thButton} label="BALANCE" />
           </th>
           <th className={classNames(styles.th)}>
-            <Button className={styles.thButton} label="AMOUNT" />
+            <Button className={styles.thButton} label="sUSD value" />
           </th>
           <th className={classNames(styles.th)}>
-            <Button className={styles.thButton} label="BOUGHT" />
-          </th>
-          <th className={classNames(styles.th)}>
-            <Button className={styles.thButton} label="RECEIVED" />
-          </th>
-          <th className={classNames(styles.th)}>
-            <Button className={styles.thButton} label="PRICE+" />
-          </th>
-          <th className={classNames(styles.th)}>
-            <Button className={styles.thButton} label="PRICE-" />
+            <Button className={styles.thButton} label="sBTC value" />
           </th>
         </tr>
       </thead>
@@ -90,13 +85,10 @@ function SwapHistory({ className }) {
 function SwapHistoryRow({ className, row }) {
   return (
     <tr className={classNames(styles.tr, styles.swapHistoryRow)}>
-      <td className={classNames(styles.td)}>20-01-10</td>
-      <td className={classNames(styles.td)}>sUSD</td>
-      <td className={classNames(styles.td)}>120$</td>
       <td className={classNames(styles.td)}>sETH</td>
-      <td className={classNames(styles.td)}>0.5¥</td>
-      <td className={classNames(styles.td)}>186</td>
-      <td className={classNames(styles.td)}>0.1</td>
+      <td className={classNames(styles.td)}>2</td>
+      <td className={classNames(styles.td)}>424$</td>
+      <td className={classNames(styles.td)}>0.14£</td>
     </tr>
   );
 }
