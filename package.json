@@ -31,7 +31,7 @@
     ]
   },
   "dependencies": {
-    "@lvlsgroup/react-component-lib": "0.3.5",
+    "@lvlsgroup/react-component-lib": "0.7.1",
     "axios": "0.19.0",
     "classnames": "2.2.6",
     "common-tags": "1.8.0",
@@ -61,14 +61,14 @@
     "zlib": "1.0.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.2",
-    "@babel/plugin-proposal-class-properties": "^7.7.0",
-    "@babel/plugin-proposal-decorators": "^7.7.0",
-    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
-    "@babel/plugin-transform-react-constant-elements": "^7.6.3",
-    "@babel/plugin-transform-react-inline-elements": "^7.2.0",
-    "@babel/preset-env": "^7.7.1",
-    "@babel/preset-react": "^7.7.0",
+    "@babel/core": "^7.8.3",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-decorators": "^7.8.3",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-transform-react-constant-elements": "^7.8.3",
+    "@babel/plugin-transform-react-inline-elements": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "@babel/preset-react": "^7.8.3",
     "@hot-loader/react-dom": "^16.10.2",
     "babel-eslint": "^10.0.2",
     "babel-jest": "^24.8.0",
