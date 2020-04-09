@@ -1,0 +1,78 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2.1
+jobs:
+  test:
+    docker:
+      - image: circleci/node:10
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          key: v1-dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: install dependencies
+          command: npm ci --loglevel error
+      - save_cache:
+          key: v1-dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: build project
+          command: npm run buildscript
+
+  deploy-stage:
+    docker:
+      - image: google/cloud-sdk
+
+    environment:
+      GCP_PROJECT: react-starter-kit-light
+      IMAGE_NAME: react-starter-kit-light-fe
+      K8S_CLUSTER_ADDRESS: https://35.228.197.80
+
+    steps:
+      - checkout
+
+      - setup_remote_docker
+
+      - run:
+          name: Docker build and push
+          command: |
+            echo ${GOOGLE_AUTH} > ${HOME}/gcp-key.json
+            docker build --rm=false -t eu.gcr.io/${GCP_PROJECT}/${IMAGE_NAME}:latest --build-arg github_token=${GITHUB_PERSONAL_ACCESS_TOKEN} .
+            gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
+            gcloud auth configure-docker
+            docker push eu.gcr.io/${GCP_PROJECT}/${IMAGE_NAME}:latest | sed -e 's/.*sha256:\(.*\) size.*/\1/' -e 'tx' -e 'd' -e ':x' > hash.txt
+
+      - run:
+          name: Deploy to GCP using Kubernetes
+          command: |
+            hash=`cat hash.txt`
+            kubectl set image deployment/react-starter-kit-light-fe react-starter-kit-light-fe=eu.gcr.io/${GCP_PROJECT}/${IMAGE_NAME}@sha256:$hash --server=$K8S_CLUSTER_ADDRESS --token=$K8S_SERVICEACCOUNT_TOKEN_STAGE --namespace=stage --insecure-skip-tls-verify
+
+workflows:
+  version: 2.1
+  test:
+    jobs:
+      - test:
+          filters:
+            branches:
+              ignore:
+                - develop
+  deploy-stage:
+    jobs:
+      - test:
+          filters:
+            branches:
+              only:
+                - develop
+      - deploy-stage:
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - develop
