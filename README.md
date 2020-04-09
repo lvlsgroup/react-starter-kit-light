@@ -7,6 +7,19 @@
 2. `npm run buildscript`
 2. `npm run prod`
 
+## USING THE LEVELS COMPONENT REPOSITORY (`@lvlsgroup/react-component-lib`)
+1. Login to your Github account > Settings > Developer settings
+2. Log in to npm.pkg.github.com
+    1. npm login --registry=https://npm.pkg.github.com
+        a) Password: your GITHUB_PERSONAL_ACCESS_TOKEN
+        b) Email: (this IS public) your-email@example.com
+
+## Docker
+### Run with docker
+1. `docker build . --build-arg github_token=${GITHUB_PERSONAL_ACCESS_TOKEN}`
+2. Get image id from build (last few row) or `docker images`
+3. `docker run -p 4000:3000 ${IMAGE_ID}`
+
 ## Feature Branches
 I will add specific features in other branches and create an PR for them (but it should never be merged) so it is easy to see the new code.
 1. User:

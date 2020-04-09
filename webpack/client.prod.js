@@ -3,8 +3,7 @@ const webpack = require('webpack');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const postcssPresetEnv = require('postcss-preset-env');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const res = (p) => path.resolve(__dirname, p);
 const entryFile = res('../src/client/client.js');
@@ -50,10 +49,6 @@ module.exports = {
           },
           {
             loader: 'postcss-loader',
-            options: {
-              ident: 'postcss',
-              plugins: () => [postcssPresetEnv()],
-            },
           },
           {
             loader: 'sass-loader',
@@ -115,9 +110,10 @@ module.exports = {
     },
   },
   optimization: {
+    minimize: true,
     minimizer: [
-      new UglifyJsPlugin({
-        uglifyOptions: {
+      new TerserPlugin({
+        terserOptions: {
           output: {
             comments: false,
             ascii_only: true,

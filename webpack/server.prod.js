@@ -1,8 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
-const postcssPresetEnv = require('postcss-preset-env');
-
 const res = (p) => path.resolve(__dirname, p);
+const Dotenv = require('dotenv-webpack');
 
 const entry = res('../src/server/render.js');
 const output = res('../_build_prod/server');
@@ -38,10 +37,6 @@ module.exports = {
           },
           {
             loader: 'postcss-loader',
-            options: {
-              ident: 'postcss',
-              plugins: () => [postcssPresetEnv()],
-            },
           },
           {
             loader: 'sass-loader',
@@ -107,6 +102,11 @@ module.exports = {
   plugins: [
     new webpack.optimize.LimitChunkCountPlugin({
       maxChunks: 1,
+    }),
+    new Dotenv({
+      path: path.resolve(__dirname, '../.env'),
+      systemvars: true,
+      safe: false,
     }),
     new webpack.DefinePlugin({
       'process.env': {
