@@ -1,7 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const TerserPlugin = require('terser-webpack-plugin');
 
@@ -145,14 +144,14 @@ module.exports = {
       analyzerMode: 'disabled',
       generateStatsFile: true,
     }),
-    new Dotenv({
-      path: path.resolve(__dirname, '../.env'),
-      systemvars: true,
-      safe: false,
-    }),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
+        GITHUB_PERSONAL_ACCESS_TOKEN: JSON.stringify(
+          process.env.GITHUB_PERSONAL_ACCESS_TOKEN
+        ),
+        API_URL: JSON.stringify(process.env.API_URL),
+        APP_PORT: JSON.stringify(process.env.APP_PORT),
       },
     }),
     new webpack.HashedModuleIdsPlugin(), // not needed for strategy to work (just good practice)

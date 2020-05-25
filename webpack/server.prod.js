@@ -1,7 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const res = (p) => path.resolve(__dirname, p);
-const Dotenv = require('dotenv-webpack');
 
 const entry = res('../src/server/render.js');
 const output = res('../_build_prod/server');
@@ -103,16 +102,16 @@ module.exports = {
     new webpack.optimize.LimitChunkCountPlugin({
       maxChunks: 1,
     }),
-    new Dotenv({
-      path: path.resolve(__dirname, '../.env'),
-      systemvars: true,
-      safe: false,
-    }),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
+        GITHUB_PERSONAL_ACCESS_TOKEN: JSON.stringify(
+          process.env.GITHUB_PERSONAL_ACCESS_TOKEN
+        ),
+        API_URL: JSON.stringify(process.env.API_URL),
+        APP_PORT: JSON.stringify(process.env.APP_PORT),
+        SERVER: JSON.stringify(true),
       },
-      'process.env.SERVER': JSON.stringify(true),
     }),
     new webpack.HashedModuleIdsPlugin(),
   ],

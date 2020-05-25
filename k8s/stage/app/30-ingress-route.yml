@@ -1,14 +1,42 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: ???-ingress-route
+  name: ???-fe-ingress-route-secure
+  namespace: stage
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`stage.???.com`)
+      kind: Rule
+      services:
+        - name: ???-fe
+          port: 3033
+  tls:
+    certResolver: default
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: https-redirect
+  namespace: stage
+spec:
+  redirectScheme:
+    scheme: https
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ???-fe-ingress-route
   namespace: stage
 spec:
   entryPoints:
     - web
   routes:
-    - match: PathPrefix(`/`)
+    - match: Host(`stage.???.com`)
       kind: Rule
+      middlewares:
+        - name: https-redirect
       services:
-        - name: ???
-          port: 3000
+        - name: ???-fe
+          port: 3033

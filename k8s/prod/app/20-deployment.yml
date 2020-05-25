@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: stage
+  namespace: prod
   name: ???-fe
   labels:
     app: ???-fe
@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: ???-fe
-        image: eu.gcr.io/?????/???-fe-stage:latest
+        image: eu.gcr.io/?????/???-fe-prod:latest
         imagePullPolicy: Always
         resources:
           requests:
