@@ -1,0 +1,79 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ???-fe-ingress-route-secure-se-to-com
+  namespace: prod
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`???.com`) || Host(`www.???.com`) || Host(`???.se`) || Host(`www.???.se`)
+      kind: Rule
+      middlewares:
+        - name: www-redirect-se
+        - name: www-se-to-com-redirect
+        - name: www-redirect
+      services:
+        - name: ???-fe
+          port: 3033
+  tls:
+    certResolver: default
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: https-redirect
+  namespace: prod
+spec:
+  redirectScheme:
+    scheme: https
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: www-redirect
+  namespace: prod
+spec:
+  redirectRegex:
+    regex: ^https://???.com(.*)
+    replacement: https://www.???.com${1}
+    permanent: true
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: www-se-to-com-redirect
+  namespace: prod
+spec:
+  redirectRegex:
+    regex: ^https://www.???.se(.*)
+    replacement: https://www.???.com${1}
+    permanent: true
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: www-redirect-se
+  namespace: prod
+spec:
+  redirectRegex:
+    regex: ^https://???.se(.*)
+    replacement: https://www.???.se{1}
+    permanent: true
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ???-fe-ingress-route
+  namespace: prod
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`???.com`) || Host(`www.???.com`) || Host(`www.???.se`) || Host(`???.se`)
+      kind: Rule
+      middlewares:
+        - name: https-redirect
+      services:
+        - name: ???-fe
+          port: 3033
