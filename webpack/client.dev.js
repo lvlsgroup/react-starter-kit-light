@@ -142,5 +142,13 @@ module.exports = {
         NODE_ENV: JSON.stringify('development'),
       },
     }),
+    function() {
+      this.plugin('done', function(stats) {
+        if (stats.compilation.errors && stats.compilation.errors.length) {
+          console.log(stats.compilation.errors);
+          process.exit(1);
+        }
+      });
+    },
   ],
 };

@@ -137,8 +137,16 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('development'),
+        SERVER: JSON.stringify(true),
       },
-      'process.env.SERVER': JSON.stringify(true),
     }),
+    function() {
+      this.plugin('done', function(stats) {
+        if (stats.compilation.errors && stats.compilation.errors.length) {
+          console.log(stats.compilation.errors);
+          process.exit(1);
+        }
+      });
+    },
   ],
 };

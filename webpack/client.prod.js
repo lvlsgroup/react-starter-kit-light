@@ -155,5 +155,13 @@ module.exports = {
       },
     }),
     new webpack.HashedModuleIdsPlugin(), // not needed for strategy to work (just good practice)
+    function() {
+      this.plugin('done', function(stats) {
+        if (stats.compilation.errors && stats.compilation.errors.length) {
+          console.log(stats.compilation.errors);
+          process.exit(1);
+        }
+      });
+    },
   ],
 };
