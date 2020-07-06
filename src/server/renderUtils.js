@@ -31,15 +31,26 @@ function getRoutePromises(reqUrl, store) {
 }
 
 export function preloadDataErrorHandler(err, res, req) {
-  if (err.code === 'ECONNABORTED') {
+  // This catch will only be caught if the redux action throw error or Promise.reject(error); That pattern is rarely used in this project
+  if (err.status === 408 || err.code === 'ECONNABORTED') {
+    // Timeout error, request took too long
     res.status(503).sendFile(path.join(`${__dirname}/500-sv.html`));
     console.error(
       `${new Date().toUTCString()}\t==> Request timeout= ${err}\turl=${req.url}`
     );
   } else {
-    const status = err.response ? err.response.status : 502;
-    res.status(status).send(get500());
-    console.error(`SERVER ERROR: ${err.toString()}`);
+    switch (err.status) {
+      case 401: {
+        // Invalid accessToken
+        req.universalCookies.remove('accessToken');
+        return res.redirect('/login');
+      }
+      case 503: {
+        return res.status(503).sendFile(path.join(`${__dirname}/500-sv.html`));
+      }
+      default:
+        return res.status(err.status).send(get500());
+    }
   }
 }
 
