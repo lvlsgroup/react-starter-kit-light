@@ -72,6 +72,7 @@ export default ({ clientStats }) => (req, res) => {
       }
     })
     .catch((err) => {
+      // This catch will only be caught if the redux action throw error or Promise.reject(error);
       preloadDataErrorHandler(err, res, req);
     });
 };

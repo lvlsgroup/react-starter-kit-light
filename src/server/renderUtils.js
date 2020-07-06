@@ -31,7 +31,6 @@ function getRoutePromises(reqUrl, store) {
 }
 
 export function preloadDataErrorHandler(err, res, req) {
-  // This catch will only be caught if the redux action throw error or Promise.reject(error); That pattern is rarely used in this project
   if (err.status === 408 || err.code === 'ECONNABORTED') {
     // Timeout error, request took too long
     res.status(503).sendFile(path.join(`${__dirname}/500-sv.html`));
