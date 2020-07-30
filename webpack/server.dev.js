@@ -140,13 +140,5 @@ module.exports = {
         SERVER: JSON.stringify(true),
       },
     }),
-    function() {
-      this.plugin('done', function(stats) {
-        if (stats.compilation.errors && stats.compilation.errors.length) {
-          console.log(stats.compilation.errors);
-          process.exit(1);
-        }
-      });
-    },
   ],
 };
