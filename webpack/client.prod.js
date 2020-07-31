@@ -112,6 +112,7 @@ module.exports = {
     minimize: true,
     minimizer: [
       new TerserPlugin({
+        parallel: 2,
         terserOptions: {
           output: {
             comments: false,
@@ -155,5 +156,14 @@ module.exports = {
       },
     }),
     new webpack.HashedModuleIdsPlugin(), // not needed for strategy to work (just good practice)
+    function() {
+      this.hooks.done.tap('errorChecker', function(stats) {
+        const errors = stats.compilation.errors;
+        if (errors && errors.length) {
+          console.log(errors);
+          process.exit(1);
+        }
+      });
+    },
   ],
 };

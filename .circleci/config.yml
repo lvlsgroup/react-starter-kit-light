@@ -23,6 +23,10 @@ jobs:
       - run:
           name: build project
           command: npm run buildscript
+      - run:
+          name: Memory usage
+          command: cat /sys/fs/cgroup/memory/memory.max_usage_in_bytes
+          when: always
 
   deploy-stage:
     docker:
