@@ -9,9 +9,7 @@ export function preloadRouteData(req, store) {
 }
 
 function getRoutePromises(reqUrl, store) {
-  console.log('reqUrl: ', reqUrl);
   const matchedRoutePromises = matchMyRoutes(staticRoutes, reqUrl);
-  console.log('matchRoutes: ', matchedRoutePromises);
 
   const routePromises = matchedRoutePromises.reduce(
     (accumPromises, { route, match }) => {
@@ -33,15 +31,32 @@ function getRoutePromises(reqUrl, store) {
 }
 
 export function preloadDataErrorHandler(err, res, req) {
-  if (err.code === 'ECONNABORTED') {
+  if (err.status === 408 || err.code === 'ECONNABORTED') {
+    // Timeout error, request took too long
     res.status(503).sendFile(path.join(`${__dirname}/500-sv.html`));
     console.error(
       `${new Date().toUTCString()}\t==> Request timeout= ${err}\turl=${req.url}`
     );
   } else {
-    const status = err.response ? err.response.status : 502;
-    res.status(status).send(get500());
-    console.error(`SERVER ERROR: ${err.toString()}`);
+    switch (err.status) {
+      case 401: {
+        // Invalid accessToken
+        req.universalCookies.remove('accessToken');
+        return res.redirect('/login');
+      }
+      case 403: {
+        // Not correct permissions
+        req.universalCookies.remove('accessToken');
+        return res.redirect('/login');
+      }
+      case 503: {
+        return res.status(503).sendFile(path.join(`${__dirname}/500-sv.html`));
+      }
+      default: {
+        const status = err.status || 500;
+        return res.status(status).send(get500(status, err));
+      }
+    }
   }
 }
 
