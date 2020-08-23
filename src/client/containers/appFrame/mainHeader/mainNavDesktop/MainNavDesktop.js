@@ -1,18 +1,19 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
-import ALL_ROUTES from '@client/pages/routes';
+import { matchPath, NavLink } from 'react-router-dom';
+import { getMainNavRoutes } from '@client/pages/routes';
 import styles from './mainNavDesktop.scss';
 
 function MainNavDesktop({ className, currentPathName }) {
-  const mainRoutes = Object.values(ALL_ROUTES);
-
   return (
     <nav
       className={`${styles.topMenuDesktop}${className ? ` ${className}` : ''}`}
     >
-      <RoutesListing routes={mainRoutes} className={styles.routeListing} />
+      <RoutesListing
+        routes={getMainNavRoutes()}
+        className={styles.routeListing}
+      />
     </nav>
   );
 }
@@ -25,19 +26,8 @@ MainNavDesktop.propTypes = {
 export default MainNavDesktop;
 
 const RoutesListing = ({ className, routes }) => {
-  function isActiveOrDefaultFundraiser(currentPathname, match, location) {
-    console.log('currentPathname', currentPathname);
-    console.log('match', match);
-    console.log('location', location);
-
-    const isBasePath = location.pathname.startsWith(currentPathname);
-    if (isBasePath && currentPathname !== '/') {
-      return true;
-    } else if (match && location.pathname === '/') {
-      return true;
-    } else {
-      return false;
-    }
+  function isTabActive(match, location, route) {
+    return matchPath(location?.pathname, route);
   }
 
   return (
@@ -45,19 +35,18 @@ const RoutesListing = ({ className, routes }) => {
       {routes &&
         routes.map((route) => {
           return (
-            <NavLink
-              key={route.TO + route.LABEL}
-              className={styles.routeLink}
-              activeClassName={styles.activeTab}
-              isActive={(match, location) =>
-                isActiveOrDefaultFundraiser(route.TO, match, location)
-              }
-              to={route.TO}
-            >
-              <li className={styles.listItem}>
+            <li key={route.componentPath} className={styles.listItem}>
+              <NavLink
+                className={styles.routeLink}
+                activeClassName={styles.activeTab}
+                isActive={(match, location) =>
+                  isTabActive(match, location, route)
+                }
+                to={route.metaData?.url}
+              >
                 <span className={styles.routeLabel}>{route.LABEL}</span>
-              </li>
-            </NavLink>
+              </NavLink>
+            </li>
           );
         })}
     </ul>
