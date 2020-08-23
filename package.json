@@ -31,7 +31,7 @@
     ]
   },
   "dependencies": {
-    "@lvlsgroup/react-component-lib": "0.6.5",
+    "@lvlsgroup/react-component-lib": "0.9.31",
     "axios": "0.19.0",
     "classnames": "2.2.6",
     "common-tags": "1.8.0",
@@ -55,7 +55,6 @@
     "redux-thunk": "^2.3.0",
     "serve-favicon": "2.5.0",
     "shelljs": "0.8.3",
-    "synthetix-js": "^2.20.0-1",
     "universal-cookie-express": "4.0.1",
     "uuid": "3.3.3",
     "webpack-flush-chunks": "2.0.3",
