@@ -4,12 +4,14 @@ const webpack = require('webpack');
 const WriteFilePlugin = require('write-file-webpack-plugin'); // here so you can see what chunks are built
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+
 const res = (p) => path.resolve(__dirname, p);
 const entryFile = res('../src/client/client.js');
 const outputFolder = res('../_build_dev/client');
 const outputFile = '[name].js';
 
-const BUILT_ASSETS_FOLDER = '/levels-assets/';
+const BUILT_ASSETS_FOLDER = '/project-assets/';
 
 module.exports = {
   name: 'client',
@@ -85,7 +87,30 @@ module.exports = {
         ],
       },
       {
-        test: /^(?!fa-solid-900).*\.(png|jpg|gif|svg|jpeg)$/,
+        test: /^(?!fa-solid-900).*\.(png|jpg|gif|jpeg)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name]_[hash].[ext]',
+              outputPath: 'images/',
+            },
+          },
+        ],
+      },
+      {
+        test: /\.svg$/,
+        issuer: {
+          test: /\.jsx?$/,
+        },
+        use: [
+          {
+            loader: '@svgr/webpack',
+          },
+        ],
+      },
+      {
+        test: /\.svg$/,
         use: [
           {
             loader: 'file-loader',
@@ -126,6 +151,7 @@ module.exports = {
     },
   },
   plugins: [
+    new CaseSensitivePathsPlugin(),
     new WriteFilePlugin(),
     new ExtractCssChunks({ hot: true, reloadAll: true, cssModules: true }),
     new webpack.HotModuleReplacementPlugin(),

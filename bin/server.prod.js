@@ -13,7 +13,7 @@ const serverOutputPath = res('../server');
 console.log('serverOutputPath: ', serverOutputPath);
 const serverRender = require(`${serverOutputPath}/render.js`).default;
 
-app.use('/levels-assets/', express.static(res('../client')));
+app.use('/project-assets/', express.static(res('../client')));
 app.use(
   compression({ flush: zlib.constants.Z_PARTIAL_FLUSH }),
   serverRender({ clientStats })

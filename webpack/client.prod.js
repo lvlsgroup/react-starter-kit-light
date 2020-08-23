@@ -1,16 +1,15 @@
 const path = require('path');
 const webpack = require('webpack');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const res = (p) => path.resolve(__dirname, p);
 const entryFile = res('../src/client/client.js');
 const outputFolder = path.join(__dirname, '../', '_build_prod', 'client');
 const outputFileName = '[name].[chunkhash].js';
 
-const BUILT_ASSETS_FOLDER = '/levels-assets/';
+const BUILT_ASSETS_FOLDER = '/project-assets/';
 
 module.exports = {
   name: 'client',
@@ -84,7 +83,30 @@ module.exports = {
         ],
       },
       {
-        test: /^(?!fa-solid-900).*\.(png|jpg|gif|svg|jpeg)$/,
+        test: /^(?!fa-solid-900).*\.(png|jpg|gif|jpeg)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name]_[hash].[ext]',
+              outputPath: 'images/',
+            },
+          },
+        ],
+      },
+      {
+        test: /\.svg$/,
+        issuer: {
+          test: /\.jsx?$/,
+        },
+        use: [
+          {
+            loader: '@svgr/webpack',
+          },
+        ],
+      },
+      {
+        test: /\.svg$/,
         use: [
           {
             loader: 'file-loader',
@@ -110,9 +132,11 @@ module.exports = {
     },
   },
   optimization: {
+    minimize: true,
     minimizer: [
-      new UglifyJsPlugin({
-        uglifyOptions: {
+      new TerserPlugin({
+        parallel: 2,
+        terserOptions: {
           output: {
             comments: false,
             ascii_only: true,
@@ -144,16 +168,24 @@ module.exports = {
       analyzerMode: 'disabled',
       generateStatsFile: true,
     }),
-    new Dotenv({
-      path: path.resolve(__dirname, '../.env'),
-      systemvars: true,
-      safe: false,
-    }),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
+        GITHUB_PERSONAL_ACCESS_TOKEN: JSON.stringify(
+          process.env.GITHUB_PERSONAL_ACCESS_TOKEN
+        ),
+        APP_PORT: JSON.stringify(process.env.APP_PORT),
       },
     }),
     new webpack.HashedModuleIdsPlugin(), // not needed for strategy to work (just good practice)
+    function() {
+      this.hooks.done.tap('errorChecker', function(stats) {
+        const errors = stats.compilation.errors;
+        if (errors && errors.length) {
+          console.log(errors);
+          process.exit(1);
+        }
+      });
+    },
   ],
 };

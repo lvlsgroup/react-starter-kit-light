@@ -3,13 +3,15 @@ const path = require('path');
 const webpack = require('webpack');
 const WriteFilePlugin = require('write-file-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+
 const res = (p) => path.resolve(__dirname, p);
 
 const nodeModules = res('../node_modules');
 const entry = res('../src/server/render.js');
 const output = res('../_build_dev/server');
 
-const BUILT_ASSETS_FOLDER = '/levels-assets/';
+const BUILT_ASSETS_FOLDER = '/project-assets/';
 
 // if you're specifying externals to leave unbundled, you need to tell Webpack
 // to still bundle `react-universal-component`, `webpack-flush-chunks` and
@@ -97,7 +99,30 @@ module.exports = {
         ],
       },
       {
-        test: /^(?!fa-solid-900).*\.(png|jpg|gif|svg|jpeg)$/,
+        test: /^(?!fa-solid-900).*\.(png|jpg|gif|jpeg)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name]_[hash].[ext]',
+              outputPath: 'images/',
+            },
+          },
+        ],
+      },
+      {
+        test: /\.svg$/,
+        issuer: {
+          test: /\.jsx?$/,
+        },
+        use: [
+          {
+            loader: '@svgr/webpack',
+          },
+        ],
+      },
+      {
+        test: /\.svg$/,
         use: [
           {
             loader: 'file-loader',
@@ -111,6 +136,7 @@ module.exports = {
     ],
   },
   resolve: {
+    mainFields: ['main'],
     extensions: ['.js'],
     modules: [path.resolve(__dirname, '..', 'src', 'client'), 'node_modules'],
     alias: {
@@ -123,6 +149,7 @@ module.exports = {
     },
   },
   plugins: [
+    new CaseSensitivePathsPlugin(),
     new WriteFilePlugin(),
     new webpack.optimize.LimitChunkCountPlugin({
       maxChunks: 1,
