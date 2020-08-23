@@ -2,12 +2,11 @@ import React from 'react';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
-import ReactLink from '@lvlsgroup/react-component-lib/src/client/components/links/reactLink/ReactLink';
-import { getMainRoutes } from '@client/pages/routes';
+import ALL_ROUTES from '@client/pages/routes';
 import styles from './mainNavDesktop.scss';
 
 function MainNavDesktop({ className, currentPathName }) {
-  const mainRoutes = Object.values(getMainRoutes());
+  const mainRoutes = Object.values(ALL_ROUTES);
 
   return (
     <nav

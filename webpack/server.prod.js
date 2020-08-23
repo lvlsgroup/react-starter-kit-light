@@ -125,6 +125,9 @@ module.exports = {
     },
   },
   plugins: [
+    new webpack.IgnorePlugin({
+      resourceRegExp: /\.md$/,
+    }),
     new webpack.optimize.LimitChunkCountPlugin({
       maxChunks: 1,
     }),

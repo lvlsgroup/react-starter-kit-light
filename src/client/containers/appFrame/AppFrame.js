@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Switch, withRouter } from 'react-router-dom';
-import { routeWithSubRoutes } from '@client/shared/utils/routerUtils/routerUtils';
+import { routeWithSubRoutes } from '@lvlsgroup/react-component-lib/src/client/shared/utils/routerUtils/routerUtils';
 import MainHeader from '@client/containers/appFrame/mainHeader/MainHeader';
 import routes from '@client/pages/routes';
 import styles from './appFrame.scss';

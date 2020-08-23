@@ -1,4 +1,4 @@
-import { imSetToObj } from '@client/shared/utils/immutableUtils/immutableUtils';
+import { imSetToObj } from '@lvlsgroup/react-component-lib/src/client/shared/utils/immutableUtils/immutableUtils';
 
 export const PAGES_REDUCER_KEY = 'pagesReducer';
 

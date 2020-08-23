@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import classNames from 'classnames/bind';
 import { withRouter } from 'react-router-dom';
-import { toggleFixedBody } from '@client/shared/utils/dom/dom';
+import { toggleFixedBody } from '@lvlsgroup/react-component-lib/src/client/shared/utils/dom/dom';
 import MainNavMobile from '@client/containers/appFrame/mainHeader/mainNavMobile/MainNavMobile';
 import MainNavDesktop from '@client/containers/appFrame/mainHeader/mainNavDesktop/MainNavDesktop';
 import styleHelper from '@client/shared/styles/styleHelper.scss';

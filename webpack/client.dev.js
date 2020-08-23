@@ -151,6 +151,9 @@ module.exports = {
     },
   },
   plugins: [
+    new webpack.IgnorePlugin({
+      resourceRegExp: /\.md$/,
+    }),
     new CaseSensitivePathsPlugin(),
     new WriteFilePlugin(),
     new ExtractCssChunks({ hot: true, reloadAll: true, cssModules: true }),
