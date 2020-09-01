@@ -4,7 +4,10 @@ import React from 'react';
 import { Switch, withRouter } from 'react-router-dom';
 import { routeWithSubRoutes } from '@lvlsgroup/react-component-lib/src/client/shared/utils/routerUtils/routerUtils';
 import MainHeader from '@client/containers/appFrame/mainHeader/MainHeader';
-import routes from '@client/pages/routes';
+import {
+  getRouteValues,
+  getMainNavRoutes,
+} from '@client/pages/mainRoutesUtils';
 import styles from './appFrame.scss';
 import ErrorBoundary from './errorBoundary/ErrorBoundary';
 
@@ -18,7 +21,9 @@ const MainRouteSwitch = withRouter(() => {
   return (
     <main className={getMainClassName()}>
       <Switch>
-        {routes.map((route, index) => routeWithSubRoutes(route, index))}
+        {getRouteValues().map((route, index) =>
+          routeWithSubRoutes(route, index)
+        )}
       </Switch>
     </main>
   );
@@ -29,7 +34,7 @@ class AppFrame extends React.PureComponent {
     return (
       <ErrorBoundary>
         <div className={styles.appFrame} id="app-container">
-          <MainHeader />
+          <MainHeader routes={getMainNavRoutes()} />
           <div className={styles.mainContentBelowHeader}>
             <MainRouteSwitch />
           </div>

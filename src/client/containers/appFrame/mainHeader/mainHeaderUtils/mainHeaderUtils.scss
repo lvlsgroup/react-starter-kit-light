@@ -1,0 +1,23 @@
+.mainHeaderLink {
+  display: none;
+
+  @include bpTablet() {
+    display: flex;
+  }
+}
+
+.routerLink {
+  $border: 5px solid;
+  border-top: $border transparent;
+  border-bottom: $border transparent;
+  display: flex;
+  align-items: center;
+
+  &.isActive {
+    border-bottom: $border green;
+  }
+
+  &:first-child {
+    margin-left: 30px;
+  }
+}

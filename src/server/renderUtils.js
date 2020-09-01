@@ -2,7 +2,7 @@ import path from 'path';
 import url from 'url';
 import { matchPath } from 'react-router-dom';
 import { get500 } from '@server/views/htmlHelpers';
-import routes from '../client/pages/routes';
+import { getRouteValues } from '@client/pages/mainRoutesUtils';
 
 export function preloadRouteData(req, store) {
   return Promise.all(getRoutePromises(req.url, store));
@@ -89,7 +89,7 @@ function matchMyRoutes(staticRoutes, reqUrl) {
 // they're loaded when we want to call loadData on the server and thus we need to import them
 // staticly/synchronously. This we do with an old-school require.
 // TODO: Make it recursive so it will support loadData for more than 3 levels of child routes
-const staticRoutes = routes.map((route) => {
+const staticRoutes = getRouteValues().map((route) => {
   const staticComponent = requireStaticComponent(route);
 
   return {

@@ -47,6 +47,8 @@ class MainHeader extends PureComponent {
   };
 
   render() {
+    const { routes } = this.props;
+
     return (
       <header className={styles.mainHeader}>
         <div
@@ -60,7 +62,7 @@ class MainHeader extends PureComponent {
               styles.topMenuDesktopProp,
               styleHelper.pageWidthAndCentralizer
             )}
-            currentPathName={this.props.location?.pathname}
+            routes={routes}
           />
           {this.state.mobileMenu === MOBILE_MENU_STATES.VISIBLE ? (
             <div onClick={this.toggleMobileMenu} className={styles.closeIcon}>
@@ -80,7 +82,7 @@ class MainHeader extends PureComponent {
           <MainNavMobile
             isVisible={this.state.mobileMenu === MOBILE_MENU_STATES.VISIBLE}
             toggleMobileMenu={this.toggleMobileMenu}
-            currentPathName={this.props.location?.pathname}
+            routes={routes}
           />
         )}
         {this.state.mobileMenu === MOBILE_MENU_STATES.VISIBLE && (
@@ -93,6 +95,7 @@ class MainHeader extends PureComponent {
 
 MainHeader.propTypes = {
   location: PropTypes.object.isRequired,
+  routes: PropTypes.array,
 };
 
 export default withRouter(MainHeader);
