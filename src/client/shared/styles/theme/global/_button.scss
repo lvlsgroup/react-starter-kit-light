@@ -1,29 +1,20 @@
-@mixin _includeButtonColors($bg-color, $color, $border-color) {
-  background-color: $bg-color;
-  color: $color;
-  border-color: $border-color;
-}
+@use "font" as *;
+@use "colors" as *;
 
-@mixin _btn-active($bg-color, $color: initial, $border-color: initial) {
-  &:active {
-    @include _includeButtonColors($bg-color, $color, $border-color);
-  }
-}
+@mixin buttonRegular {
+  font-family: $header-font;
+  font-size: 16px;
+  line-height: 48px;
+  height: 48px;
+  font-weight: 600;
+  width: 304px;
+  color: $color-white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out, color 0.2s ease-in-out, border 0.2s ease-in-out;
 
-@mixin _btn-hover($bg-color, $color: initial, $border-color : initial) {
-  &:hover {
-    @include _includeButtonColors($bg-color, $color, $border-color);
-  }
-}
-
-@mixin _btn-disabled($bg-color, $color: initial, $border-color : initial) {
-  &:disabled {
-    @include _includeButtonColors($bg-color, $color, $border-color);
-  }
-}
-
-@mixin _btn-focus($outline) {
   &:focus {
-    outline: $outline;
+    outline: none;
   }
 }

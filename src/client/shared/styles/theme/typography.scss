@@ -1,25 +1,180 @@
-@mixin _header($color, $fontSize, $lineHeightX, $fontWeight, $mobileFontSizeScale: 0.5) {
-  $mobile-header-font-size: xResizer($fontSize, $mobileFontSizeScale);
-  font-family: $header-font;
-  font-size: $mobile-header-font-size;
-  font-weight: $fontWeight;
-  font-style: normal;
-  color: $color;
-  line-height: lineHeight($mobile-header-font-size, $lineHeightX);
+@use "global/layout" as *;
+@use "global/colors" as *;
+@use "global/font" as *;
 
-  @include bpTablet() {
-    font-size: $fontSize;
+/* HOW TO:
+
+1: Add all values (font size, line height, etc) to the sass lists below. This will be generated into atomic classes that can be composes in typography-classes.
+2: Create a class for each typography style from the design which used the composes function from css modules
+  Ex: composes: weight500 fontSize14_16 lineHeight12_13;
+3: Done! Check the css files and you will see optimised atomic css classes.
+*/
+
+// Font size pairs is a list of mobile:desktop size pairs. (Mob:Des, Mob:Des ... )
+//generates classes: fontSize14_16, fontSize36_64 etc
+$fontSizePairs: ((36,64), (24,48), (18,36), (16,36), (10,10), (14,16), (18,22), (16,20), (24,36), (12,14), (12,12));
+
+//List of pairs. Each value need to have quotes so it is treated as a string. Values should be unitless which is best practice in css for lineheight.
+// Ex: (("1.2", "1.3"), ("1.4", "1.5")).
+//generates classes: lineHeight12_13, lineHeight14_15 (dots are removed).
+$lineHeightPairs: (("1.2","1.2"), ("1.3","1.2"), ("1.3","1.3"), ("1.4","1.5"), ("1.56","1.5"), ("1.4","1.4"));
+
+//Ex: $weights: 300, 400, 500, 600;
+//generates classes: weight300, weight400 etc.
+$weights: 300, 400, 500, 600;
+
+
+@function pxToRem($size) {
+  @return ($size/16) + rem;
+}
+
+.fontBerlingskeCN {
+  font-family: $font-berlingske-cn, serif;
+}
+
+.fontBerlingskeText {
+  font-family: $font-berlingske-text, serif;
+}
+
+.fontGoodSans {
+  font-family: $font-good-sans, sans-serif;
+}
+
+.center {
+  text-align: center;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+@each $pair in $fontSizePairs {
+  .fontSize#{nth($pair, 1)}_#{nth($pair, 2)} {
+    font-size: pxToRem(nth($pair, 1));
+
+    @if(nth($pair, 1) != nth($pair, 2)) {
+      @include bpDesktop() {
+        font-size: pxToRem(nth($pair, 2));
+      }
+    }
   }
 }
 
-@mixin _link($fontFamily, $fontSize, $color) {
-  font-family: $fontFamily;
-  font-size: $fontSize;
-  color: $color;
-  text-decoration: underline;
-  cursor: pointer;
+@function str-replace($string, $search, $replace: '') {
+  $index: str-index($string, $search);
+
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+
+  @return $string;
 }
 
-.title1 {
-  @include _header($color-dark, $font-size-heading-lg, 1.2, $weight-normal);
+@each $pair in $lineHeightPairs {
+  .lineHeight#{str-replace(nth($pair, 1), ".")}_#{str-replace(nth($pair, 2), ".")} {
+    line-height: unquote(nth($pair, 1));
+
+    @if(nth($pair, 1) != nth($pair, 2)) {
+      @include bpDesktop() {
+        line-height: unquote(nth($pair, 2));
+      }
+    }
+  }
 }
+
+@each $weight in $weights {
+  .weight#{$weight} {
+    font-weight: $weight;
+  }
+}
+
+
+.headline1 {
+  composes: fontBerlingskeCN fontSize36_64 lineHeight12_12 weight500 center;
+}
+
+.headline2 {
+  composes: fontBerlingskeCN fontSize24_48 lineHeight12_12 weight500;
+}
+
+.headline3 {
+  composes: fontBerlingskeCN fontSize18_36 lineHeight13_12 weight500;
+}
+
+.headline4 {
+  composes: fontBerlingskeCN fontSize16_36 lineHeight13_12 weight400;
+}
+
+.subtitle1 {
+  composes: fontGoodSans fontSize10_10 lineHeight12_12 weight400;
+}
+
+.subtitle2 {
+  composes: fontBerlingskeText fontSize14_16 lineHeight13_13 weight600;
+}
+
+.subtitle3 {
+  composes: fontBerlingskeText fontSize14_16 lineHeight13_13 weight400;
+}
+
+.body1 {
+  composes: fontBerlingskeText fontSize18_22 lineHeight14_15 weight600;
+}
+
+.body2 {
+  composes: fontBerlingskeText fontSize16_20 lineHeight156_15 weight400;
+}
+
+.quote1 {
+  composes: fontGoodSans fontSize18_36 lineHeight12_12 weight400 uppercase;
+}
+
+.quote2 {
+  composes: fontBerlingskeCN fontSize24_36 lineHeight12_12 weight500 uppercase;
+}
+
+.quoteByline {
+  composes: fontGoodSans fontSize12_14 lineHeight14_14 weight300;
+}
+
+.tagSmall {
+  composes: fontGoodSans fontSize10_10 lineHeight12_12 weight400 uppercase;
+}
+
+.tagLarge {
+  composes: fontGoodSans fontSize12_12 lineHeight14_14 weight400 uppercase;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+.headline5 {
+  !* TODO headline 5 & 6 not finished in figma as of 27/1 11am *!
+}
+
+.headline6 {
+  !* TODO headline 5 & 6 not finished in figma as of 27/1 11am *!
+}
+
+
+.btnText {
+  //@include _typography($font-good-sans, 12, ??, 1.4, ??, 400, left, 0.32, normal);
+}
+
+.menuItem {
+  //@include _typography($font-good-sans, 12, ??, 1.4, ??, 400, left, 0.32, normal);
+}
+
+.imageByline {
+  //@include _typography($font-good-sans, 12, ??, 1.4, ??, 400, left, 0.32, normal);
+}
+*/

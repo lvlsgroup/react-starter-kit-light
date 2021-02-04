@@ -9,7 +9,7 @@ import ReactDOMServer from 'react-dom/server';
 import asyncReducers from '@client/redux/asyncReducers';
 import LazyLoadContext from '@client/helperComponents/context/LazyLoadContext';
 import configureStore from '@client/redux/configureStore';
-import AppFrame from '../client/containers/appFrame/AppFrame';
+import AppFrame from '../client/appFrame/AppFrame';
 import { getHtml } from './views/htmlHelpers';
 import { preloadDataErrorHandler, preloadRouteData } from './renderUtils';
 

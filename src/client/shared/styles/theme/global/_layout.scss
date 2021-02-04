@@ -1,6 +1,6 @@
-/* Temporary workaround import issue in docker container with import of file from component lib */
+@use "colors" as *;
 
-$max-page-width: 1080px;
+$max-page-width: 1160px;
 
 $mobile-landscape: 576px;
 $tablet: 768px;

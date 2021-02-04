@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const WriteFilePlugin = require('write-file-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+const { injectGlobalSassHelperToScssFiles } = require('./shared');
 
 const res = (p) => path.resolve(__dirname, p);
 
@@ -66,10 +67,7 @@ module.exports = {
           {
             loader: 'sass-loader',
             options: {
-              data:
-                `@import "${res(
-                  '../src/client/shared/styles/globals.scss'
-                )}";` + ` $node-env: ${process.env.NODE_ENV};`,
+              additionalData: injectGlobalSassHelperToScssFiles,
             },
           },
         ],
@@ -87,7 +85,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(woff(2)?|ttf|eot)|fa-solid-900\.svg$/,
+        test: /\.(woff(2)?|ttf|eot|otf)|fa-solid-900\.svg$/,
         use: [
           {
             loader: 'file-loader',
@@ -99,7 +97,7 @@ module.exports = {
         ],
       },
       {
-        test: /^(?!fa-solid-900).*\.(png|jpg|gif|jpeg)$/,
+        test: /^(?!fa-solid-900).*\.(png|jpg|gif|jpeg|mp4)$/,
         use: [
           {
             loader: 'file-loader',

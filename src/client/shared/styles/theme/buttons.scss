@@ -1,3 +1,40 @@
+@mixin _includeBgCoBc($bg-color, $color, $border-color) {
+  background-color: $bg-color;
+  color: $color;
+  border-color: $border-color;
+}
+
+@mixin _btn-active($bg-color, $color: initial, $border-color: initial) {
+  &:active {
+    @include _includeBgCoBc($bg-color, $color, $border-color);
+  }
+}
+
+@mixin _btn-hover($bg-color, $color: initial, $border-color : initial) {
+  &:hover {
+    @include _includeBgCoBc($bg-color, $color, $border-color);
+  }
+}
+
+@mixin _btn-disabled($bg-color, $color: initial, $border-color : initial) {
+  &:disabled {
+    @include _includeBgCoBc($bg-color, $color, $border-color);
+    cursor: initial;
+    pointer-events: none;
+  }
+  &[data-disabled=true] {
+    @include _includeBgCoBc($bg-color, $color, $border-color);
+    cursor: initial;
+    pointer-events: none;
+  }
+}
+
+@mixin _btn-focus($outline) {
+  &:focus {
+    outline: $outline;
+  }
+}
+
 ._btn {
   display: flex;
   flex-shrink: 0;

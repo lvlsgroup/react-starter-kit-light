@@ -1,3 +1,5 @@
+@use "global/grid" as *;
+
 ._sharedGrid {
   flex: 1;
   display: flex;
@@ -7,9 +9,18 @@
 
 .grid12 {
   composes: _sharedGrid;
-  @include _grid(30px, 30px);
+  @include grid(30px, 30px);
 
   > * {
-    @include _responsiveAndFluidItem(30px, 30px, 100%, 50%, 50%, 50%, 50%);
+    @include responsiveAndFluidItem(30px, 30px, 100%, 50%, 50%, 50%, 50%);
+  }
+}
+
+.grid3 {
+  composes: _sharedGrid;
+  @include grid(8px, 8px);
+
+  > * {
+    @include responsiveAndFluidItem(8px, 8px, 33.3333333%, 33.3333333%, 33.3333333%, 33.3333333%, 33.3333333%);
   }
 }

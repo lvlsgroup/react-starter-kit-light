@@ -11,6 +11,10 @@
   margin-top: $mgt24;
 }
 
+.mgt32 {
+  margin-top: $mgt32;
+}
+
 .mgt48 {
   margin-top: $mgt48;
 }
@@ -69,7 +73,7 @@
 }
 
 .hideOnDesktop {
-  @include bpTablet() {
+  @include bpDesktop() {
     display: none !important;
   }
 }

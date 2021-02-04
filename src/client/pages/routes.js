@@ -1,6 +1,6 @@
 import universal from 'react-universal-component';
 import SyncLoaderFullScreen from '@lvlsgroup/react-component-lib/src/client/components/loaders/syncLoader/SyncLoaderFullScreen';
-import ErrorLoadingRouteChunk from '@client/containers/errorLoadingRouteChunk/ErrorLoadingRouteChunk';
+import ErrorLoadingRouteChunk from '@client/helperComponents/errorLoadingRouteChunk/ErrorLoadingRouteChunk';
 
 export const OPTIONS = {
   error: ErrorLoadingRouteChunk,
@@ -12,16 +12,16 @@ const ALL_ROUTES = {
   HOME: {
     path: '/',
     exact: true,
-    componentPath: 'pages/homePage/HomePage',
-    Component: universal(import('pages/homePage/HomePage'), OPTIONS),
+    componentPath: 'pages/homeRoute/HomeRoute',
+    Component: universal(import('pages/homeRoute/HomeRoute'), OPTIONS),
     metaData: {
       url: '/',
     },
   },
   NOT_FOUND_PAGE: {
     path: '*',
-    componentPath: 'pages/notFoundPage/NotFoundPage',
-    Component: universal(import('pages/notFoundPage/NotFoundPage'), OPTIONS),
+    componentPath: 'pages/notFoundRoute/NotFoundRoute',
+    Component: universal(import('pages/notFoundRoute/NotFoundRoute'), OPTIONS),
     status: 404,
   },
 };
