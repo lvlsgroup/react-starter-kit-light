@@ -1,102 +1,60 @@
-@mixin _includeBgCoBc($bg-color, $color, $border-color) {
-  background-color: $bg-color;
-  color: $color;
-  border-color: $border-color;
-}
-
-@mixin _btn-active($bg-color, $color: initial, $border-color: initial) {
-  &:active {
-    @include _includeBgCoBc($bg-color, $color, $border-color);
-  }
-}
-
-@mixin _btn-hover($bg-color, $color: initial, $border-color : initial) {
-  &:hover {
-    @include _includeBgCoBc($bg-color, $color, $border-color);
-  }
-}
-
-@mixin _btn-disabled($bg-color, $color: initial, $border-color : initial) {
-  &:disabled {
-    @include _includeBgCoBc($bg-color, $color, $border-color);
-    cursor: initial;
-    pointer-events: none;
-  }
-  &[data-disabled=true] {
-    @include _includeBgCoBc($bg-color, $color, $border-color);
-    cursor: initial;
-    pointer-events: none;
-  }
-}
-
-@mixin _btn-focus($outline) {
-  &:focus {
-    outline: $outline;
-  }
-}
-
-._btn {
-  display: flex;
-  flex-shrink: 0;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
-  border-radius: 4px;
-  padding: 0 16px;
-}
-
-.btnContained {
-  color: $font-white;
-  background-color: $color-dark;
-
-  @extend ._btn;
-
-  @include _btn-hover($color-black, $font-white);
-  @include _btn-active($color-black, $font-white);
-  @include _btn-disabled($color-disabled, $font-light);
-  @include _btn-focus(none);
-}
-
-.btnContainedMd {
-  height: 46px;
-  @extend .btnContained;
-}
-
-.btnContainedMintrMd {
-  height: 46px;
-  @extend .btnContained;
-  background-color: rgb(114, 124, 255);
-  border-radius: 0;
-}
-
-.btnContainedMintrSm {
-  @extend .btnContained;
-  height: 26px;
-  background-color: rgb(114, 124, 255);
-  border-radius: 0;
-  width: 100%;
-}
-
-.btnContainedSm {
-  height: 26px;
-  @extend .btnContained;
-}
-
-/** ____ Outlined Buttons ____ */
-.btnOutlined {
+.border1pxBlack {
   border: 1px solid $color-black;
-
-  color: $font-black;
-  background-color: $color-white;
-
-  @extend ._btn;
-
-  @include _btn-hover(#F6F6F6);
-  @include _btn-active(#F6F6F6);
-  @include _btn-focus(none);
 }
 
-.btnOutlinedSm {
-  height: 26px;
-  @extend .btnOutlined;
+.border1pxWhite {
+  border: 1px solid $color-white;
+}
+
+.bgTransparent {
+  background-color: transparent;
+}
+
+.bgWhite {
+  background-color: $color-white;
+}
+
+.bgBlack {
+  background-color: $color-black;
+}
+
+.btnPrimary {
+  composes: bgWhite border1pxBlack;
+
+  font-family: $font-good-sans;
+  font-size: pxToRem(12);
+  line-height: 1.17;
+  text-align: center;
+  letter-spacing: 0.02rem;
+  text-transform: uppercase;
+  color: $color-black;
+  padding: 0 32px;
+  height: 42px;
+  width: 100%;
+
+  @include bpDesktop(){
+    width: auto;
+  }
+
+  &:hover {
+    color: $color-white;
+    background-color: $color-black;
+    font-weight: 500;
+  }
+
+  &:active {
+    color: $color-white;
+    background-color: $color-grey-darker;
+    border: 1px solid $color-grey-darker;
+  }
+
+  &:focus {
+    color: $color-white;
+    background-color: $color-black;
+  }
+
+  &:disabled {
+    color: $color-grey-medium;
+    background: $color-grey-light;
+  }
 }
