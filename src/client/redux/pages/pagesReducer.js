@@ -3,6 +3,7 @@ import { imSetToObj } from '@lvlsgroup/react-component-lib/src/client/shared/uti
 export const PAGES_REDUCER_KEY = 'pagesReducer';
 
 export const LOAD_HOME_PAGE_DATA = 'LOAD_HOME_PAGE_DATA';
+export const LOAD_HOME_PAGE_ERROR = 'LOAD_HOME_PAGE_ERROR';
 
 let defaultState = {
   homePage: null,

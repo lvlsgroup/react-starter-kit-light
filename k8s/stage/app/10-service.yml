@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ???-fe
+  namespace: stage
+  labels:
+    app: ???-fe
+    tier: frontend
+spec:
+  selector:
+    app: ???-fe
+    tier: frontend
+  ports:
+    - name: web
+      protocol: TCP
+      port: 3000

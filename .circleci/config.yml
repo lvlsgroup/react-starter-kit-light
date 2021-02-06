@@ -23,15 +23,19 @@ jobs:
       - run:
           name: build project
           command: npm run buildscript
+      - run:
+          name: Memory usage
+          command: cat /sys/fs/cgroup/memory/memory.max_usage_in_bytes
+          when: always
 
   deploy-stage:
     docker:
       - image: google/cloud-sdk
 
     environment:
-      GCP_PROJECT: react-starter-kit-light
-      IMAGE_NAME: react-starter-kit-light-fe
-      K8S_CLUSTER_ADDRESS: https://35.228.197.80
+      GCP_PROJECT: ???????
+      IMAGE_NAME: ???????-fe-stage
+      K8S_CLUSTER_ADDRESS: ?????
 
     steps:
       - checkout
@@ -51,7 +55,7 @@ jobs:
           name: Deploy to GCP using Kubernetes
           command: |
             hash=`cat hash.txt`
-            kubectl set image deployment/react-starter-kit-light-fe react-starter-kit-light-fe=eu.gcr.io/${GCP_PROJECT}/${IMAGE_NAME}@sha256:$hash --server=$K8S_CLUSTER_ADDRESS --token=$K8S_SERVICEACCOUNT_TOKEN_STAGE --namespace=stage --insecure-skip-tls-verify
+            kubectl set image deployment/???-fe ???-fe=eu.gcr.io/${GCP_PROJECT}/${IMAGE_NAME}@sha256:$hash --server=$K8S_CLUSTER_ADDRESS --token=$K8S_SERVICEACCOUNT_TOKEN_STAGE --namespace=stage --insecure-skip-tls-verify
 
 workflows:
   version: 2.1

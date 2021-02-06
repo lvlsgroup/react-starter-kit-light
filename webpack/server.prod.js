@@ -133,8 +133,13 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
+        GITHUB_PERSONAL_ACCESS_TOKEN: JSON.stringify(
+          process.env.GITHUB_PERSONAL_ACCESS_TOKEN
+        ),
+        API_URL: JSON.stringify(process.env.API_URL),
+        APP_PORT: JSON.stringify(process.env.APP_PORT),
+        SERVER: JSON.stringify(true),
       },
-      'process.env.SERVER': JSON.stringify(true),
     }),
     new webpack.HashedModuleIdsPlugin(),
     function() {

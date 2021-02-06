@@ -5,6 +5,7 @@ WORKDIR /builder
 COPY package.json .
 COPY babel.config.js .
 COPY .browserslistrc .
+COPY postcss.config.js .
 COPY src ./src
 COPY scripts ./scripts
 COPY webpack ./webpack

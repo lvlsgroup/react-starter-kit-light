@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: prod
+  name: ???-fe
+  labels:
+    app: ???-fe
+    tier: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ???-fe
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: ???-fe
+        tier: frontend
+    spec:
+      containers:
+      - name: ???-fe
+        image: eu.gcr.io/?????/???-fe-prod:latest
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "200Mi"
+          limits:
+            cpu: "1000m"
+            memory: "400Mi"
+        ports:
+        - containerPort: 3000
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000

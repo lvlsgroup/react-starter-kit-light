@@ -6,10 +6,11 @@ const morgan = require('morgan');
 var uuid = require('uuid/v4');
 const cookiesMiddleware = require('universal-cookie-express');
 
+// Do NOT remove next. This needs to stay even if unused
+// eslint-disable-next-line
 const errorHandler = (err, req, res, next) => {
   console.error('server errorHandler', new Date().toUTCString(), err.stack);
   res.status(500).sendFile(path.join(`${__dirname}/500-sv.html`));
-  next();
 };
 
 function assignId(req, res, next) {

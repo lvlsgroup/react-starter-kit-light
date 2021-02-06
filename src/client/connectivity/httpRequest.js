@@ -6,19 +6,15 @@ export default function httpRequest(requestConfig = {}) {
     (response) => {
       return response;
     },
-    (responseWithError) => {
-      const data =
-        responseWithError &&
-        responseWithError.response &&
-        responseWithError.response.data;
-
-      const error = new HttpApiCallError(
-        responseWithError.statusText,
-        responseWithError.status,
-        data
+    (responseError) => {
+      const error = responseError?.response;
+      const customError = new HttpApiCallError(
+        error?.statusText,
+        error?.status,
+        error?.data
       );
 
-      throw error;
+      throw customError;
     }
   );
 }

@@ -1,12 +1,16 @@
-function getBaseRequestConfig() {
+function getBaseRequestConfig(accessToken, contentType = 'application/json') {
   const config = {
     method: 'GET',
     mode: 'cors',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': contentType,
     },
     timeout: 6000,
   };
+
+  if (accessToken) {
+    config.headers['Access-Token'] = `${accessToken}`;
+  }
 
   return config;
 }
