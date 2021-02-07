@@ -12,16 +12,16 @@ const ALL_ROUTES = {
   HOME: {
     path: '/',
     exact: true,
-    componentPath: 'pages/homeRoute/HomeRoute',
-    Component: universal(import('pages/homeRoute/HomeRoute'), OPTIONS),
+    componentPath: 'routes/homeRoute/HomeRoute',
+    Component: universal(import('routes/homeRoute/HomeRoute'), OPTIONS),
     metaData: {
       url: '/',
     },
   },
   NOT_FOUND_PAGE: {
     path: '*',
-    componentPath: 'pages/notFoundRoute/NotFoundRoute',
-    Component: universal(import('pages/notFoundRoute/NotFoundRoute'), OPTIONS),
+    componentPath: 'routes/notFoundRoute/NotFoundRoute',
+    Component: universal(import('routes/notFoundRoute/NotFoundRoute'), OPTIONS),
     status: 404,
   },
 };

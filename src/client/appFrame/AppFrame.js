@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Switch, withRouter } from 'react-router-dom';
 import { routeWithSubRoutes } from '@lvlsgroup/react-component-lib/src/client/shared/utils/routerUtils/routerUtils';
-import { getRouteValues } from '@client/pages/mainRoutesUtils';
+import { getRouteValues } from '@client/routes/mainRoutesUtils';
+import { loadGlobals } from '@client/redux/globals/globalsActions';
+import Footer from '@client/modules/footer/Footer';
+import MainNavbar from '@client/modules/mainNavbar/MainNavbar';
 import ErrorBoundary from '../helperComponents/errorBoundary/ErrorBoundary';
 import styles from './appFrame.scss';
 
@@ -26,13 +29,17 @@ const MainRouteSwitch = withRouter(() => {
 });
 
 class AppFrame extends React.PureComponent {
+  static loadData(dispatch) {
+    return dispatch(loadGlobals());
+  }
+
   render() {
     return (
       <ErrorBoundary>
         <div className={styles.appFrame} id="app-container">
-          <div className={styles.mainContentBelowHeader}>
-            <MainRouteSwitch />
-          </div>
+          <MainNavbar className={styles.mainNavbarProp} />
+          <MainRouteSwitch />
+          <Footer className={styles.footerProp} />
         </div>
       </ErrorBoundary>
     );

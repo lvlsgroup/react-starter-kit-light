@@ -30,11 +30,6 @@
   color: $color-black;
   padding: 0 32px;
   height: 42px;
-  width: 100%;
-
-  @include bpDesktop(){
-    width: auto;
-  }
 
   &:hover {
     color: $color-white;

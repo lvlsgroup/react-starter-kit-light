@@ -90,7 +90,7 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: '[name]_[hash].[ext]',
+              name: '[name]_[hash:4].[ext]',
               outputPath: 'font-icons/',
             },
           },

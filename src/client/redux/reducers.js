@@ -1,11 +1,15 @@
 import { combineReducers } from 'redux';
-import pagesReducer, {
-  PAGES_REDUCER_KEY,
-} from '@client/redux/pages/pagesReducer';
+import globalsReducer, {
+  GLOBALS_REDUCER_KEY,
+} from '@client/redux/globals/globalsReducer';
+import routesReducer, {
+  ROUTES_REDUCER_KEY,
+} from '@client/redux/routes/routesReducer';
 
 export default function createRootReducer(injectedReducers = {}, initialState) {
   const reducers = {
-    [PAGES_REDUCER_KEY]: pagesReducer,
+    [ROUTES_REDUCER_KEY]: routesReducer,
+    [GLOBALS_REDUCER_KEY]: globalsReducer,
     ...injectedReducers,
   };
 

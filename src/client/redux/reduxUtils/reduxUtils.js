@@ -1,8 +1,6 @@
-import {
-  getFormattedHttpReqError,
-  isClient,
-} from '@client/shared/utils/utils/utils';
-import { removeCookie } from '@lvlsgroup/react-component-lib/src/client/shared/cookieUtils/cookieUtils';
+import { removeCookie } from '@client/shared/utils/generalUtils/cookieUtils/cookieUtils';
+import { getFormattedHttpReqError } from '@client/shared/utils/globalProjectUtils/globalProjectUtils/globalProjectUtils';
+import { isClient } from '@client/shared/utils/generalUtils/generalUtils/generalUtils';
 
 // If Promise.reject we let the node server handle the error (renderUtils.js -> preloadDataErrorHandler)
 export function handleApiError(dispatch, error, actionType) {

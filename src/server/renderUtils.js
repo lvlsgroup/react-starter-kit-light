@@ -2,10 +2,13 @@ import path from 'path';
 import url from 'url';
 import { matchPath } from 'react-router-dom';
 import { get500 } from '@server/views/htmlHelpers';
-import { getRouteValues } from '@client/pages/mainRoutesUtils';
+import { getRouteValues } from '@client/routes/mainRoutesUtils';
+import AppFrame from '@client/appFrame/AppFrame';
 
 export function preloadRouteData(req, store) {
-  return Promise.all(getRoutePromises(req.url, store));
+  return AppFrame.loadData(store.dispatch).then(() => {
+    return Promise.all(getRoutePromises(req.url, store));
+  });
 }
 
 function getRoutePromises(reqUrl, store) {
