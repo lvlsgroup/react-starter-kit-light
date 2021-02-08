@@ -3,9 +3,10 @@ import { imSetToObj } from '@lvlsgroup/react-component-lib/src/client/shared/uti
 export const GLOBALS_REDUCER_KEY = 'globalsReducer';
 
 export const LOAD_GLOBALS = 'LOAD_GLOBALS';
+export const SET_LANGUAGE_CODE = 'SET_LANGUAGE_CODE';
 
 let defaultState = {
-  currentLanguage: undefined,
+  languageCode: undefined,
   globals: null,
 };
 
@@ -14,13 +15,24 @@ export default function(state = defaultState, action = {}) {
     case LOAD_GLOBALS: {
       return imSetToObj(state, 'globals', action.payload);
     }
+    case SET_LANGUAGE_CODE: {
+      return imSetToObj(state, 'languageCode', action.payload);
+    }
     default:
       return state;
   }
 }
 
+export const selectGlobalsReducer = (state) => {
+  return state[GLOBALS_REDUCER_KEY];
+};
+
+export const selectLanguageCode = (state) => {
+  return selectGlobalsReducer(state)?.languageCode;
+};
+
 export const selectGlobals = (state) => {
-  return state[GLOBALS_REDUCER_KEY].globals;
+  return selectGlobalsReducer(state)?.globals;
 };
 
 export const selectFooter = (state) => {
@@ -29,8 +41,4 @@ export const selectFooter = (state) => {
 
 export const selectMainNavbar = (state) => {
   return selectGlobals(state)?.mainNavbar;
-};
-
-export const selectCurrentLanguage = (state) => {
-  return state[GLOBALS_REDUCER_KEY].currentLanguage;
 };

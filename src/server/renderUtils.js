@@ -4,14 +4,19 @@ import { matchPath } from 'react-router-dom';
 import { get500 } from '@server/views/htmlHelpers';
 import { getRouteValues } from '@client/routes/mainRoutesUtils';
 import AppFrame from '@client/appFrame/AppFrame';
+import { getLanguageCode } from '@client/shared/utils/globalProjectUtils/languageUtils/languageUtils';
 
 export function preloadRouteData(req, store) {
-  return AppFrame.loadData(store.dispatch).then(() => {
-    return Promise.all(getRoutePromises(req.url, store));
+  const parsedUrl = url.parse(req.url);
+  const { dispatch } = store;
+  const languageCode = getLanguageCode(req.hostname);
+
+  return AppFrame.loadData({ dispatch, languageCode }).then(() => {
+    return Promise.all(getRoutePromises(req.url, dispatch, parsedUrl));
   });
 }
 
-function getRoutePromises(reqUrl, store) {
+function getRoutePromises(reqUrl, dispatch, parsedUrl) {
   const matchedRoutePromises = matchMyRoutes(staticRoutes, reqUrl);
 
   const routePromises = matchedRoutePromises.reduce(
@@ -19,9 +24,12 @@ function getRoutePromises(reqUrl, store) {
       const wrappedContainer =
         route.staticComponent && route.staticComponent.WrappedComponent;
       if (wrappedContainer && wrappedContainer.loadData) {
-        const parsedUrl = url.parse(reqUrl);
         accumPromises.push(
-          wrappedContainer.loadData(store.dispatch, parsedUrl, match.params)
+          wrappedContainer.loadData({
+            dispatch: dispatch,
+            location: parsedUrl,
+            mathParams: match.params,
+          })
         );
         return accumPromises;
       }

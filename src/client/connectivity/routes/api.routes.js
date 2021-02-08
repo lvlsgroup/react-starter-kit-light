@@ -1,9 +1,8 @@
 import { mockGetRequest } from '@client/connectivity/connectivityUtils';
-import sv_allCopy from '@client/connectivity/routes/mockDataRoutes/sv_RoutesMockData/sv_allCopy';
-import httpRequest from '../httpRequest';
-import { getBaseRequestConfig, API_URL } from '../baseRequestConfig';
+import { getMockDataRoutes } from '@client/connectivity/routes/mockDataRoutes/mockDataRoutesUtils';
+import { API_URL, getBaseRequestConfig } from '../baseRequestConfig';
 
-export function fetchRoute(route) {
+export function fetchRoute(route, languageCode) {
   const baseRequestConfig = getBaseRequestConfig();
   const url = `${API_URL}/${route.apiKey}`;
 
@@ -12,9 +11,5 @@ export function fetchRoute(route) {
   });
 
   //return httpRequest(requestConfig);
-  return mockGetRequest(10, getMockData(route.reducerKey));
-}
-
-function getMockData(slug) {
-  return sv_allCopy[slug];
+  return mockGetRequest(10, getMockDataRoutes(route.reducerKey, languageCode));
 }

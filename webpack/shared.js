@@ -16,6 +16,16 @@ const injectGlobalSassHelperToScssFiles = (content, loaderContext) => {
   }
 };
 
+const ALIAS = {
+  '@client': path.resolve(__dirname, '..', 'src', 'client'),
+  '@server': path.resolve(__dirname, '..', 'src', 'server'),
+  '@rc-lib-client': '@lvlsgroup/react-component-lib/src/client',
+  '@rc-lib-server': '@lvlsgroup/react-component-lib/src/server',
+  'lvlsgroup-components':
+    '@lvlsgroup/react-component-lib/src/client/components',
+};
+
 module.exports = {
   injectGlobalSassHelperToScssFiles,
+  ALIAS,
 };

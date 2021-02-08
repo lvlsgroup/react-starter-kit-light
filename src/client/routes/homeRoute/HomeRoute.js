@@ -11,13 +11,13 @@ import { selectRoute } from '@client/redux/routes/routesReducer';
 import styles from './HomeRoute.scss';
 
 class HomeRoute extends React.Component {
-  static loadData(dispatch) {
+  static loadData({ dispatch }) {
     return dispatch(loadRoute(ROUTE_KEYS.homeRoute));
   }
 
   componentDidMount() {
     const { dispatch } = this.props;
-    HomeRoute.loadData(dispatch);
+    HomeRoute.loadData({ dispatch });
   }
 
   render() {

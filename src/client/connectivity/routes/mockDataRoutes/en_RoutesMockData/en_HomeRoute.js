@@ -1,3 +1,6 @@
-import copy from '../sv_RoutesMockData/sv_HomeRoute';
+const sv_HomeRoute = {
+  mainTitle: 'Homepage Title',
+  subTitle: 'Welcome ${1}, this is your dashboard',
+};
 
-export default copy;
+export default sv_HomeRoute;

@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const TerserPlugin = require('terser-webpack-plugin');
+const { ALIAS } = require('./shared');
 const { injectGlobalSassHelperToScssFiles } = require('./shared');
 
 const res = (p) => path.resolve(__dirname, p);
@@ -120,14 +121,7 @@ module.exports = {
   resolve: {
     extensions: ['.js'],
     modules: [path.resolve(__dirname, '..', 'src', 'client'), 'node_modules'],
-    alias: {
-      '@client': path.resolve(__dirname, '..', 'src', 'client'),
-      '@server': path.resolve(__dirname, '..', 'src', 'server'),
-      '@rc-lib-client': '@lvlsgroup/react-component-lib/src/client',
-      '@rc-lib-server': '@lvlsgroup/react-component-lib/src/server',
-      'lvlsgroup-components':
-        '@lvlsgroup/react-component-lib/src/client/components',
-    },
+    alias: ALIAS,
   },
   optimization: {
     minimize: true,

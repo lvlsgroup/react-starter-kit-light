@@ -7,13 +7,13 @@ import { selectRoute } from '@client/redux/routes/routesReducer';
 import { loadRoute } from '@client/redux/routes/routesActions';
 
 class NotFoundRoute extends PureComponent {
-  static loadData(dispatch) {
+  static loadData({ dispatch }) {
     return dispatch(loadRoute(ROUTE_KEYS.notFoundRoute));
   }
 
   componentDidMount() {
     const { dispatch } = this.props;
-    NotFoundRoute.loadData(dispatch);
+    NotFoundRoute.loadData({ dispatch });
   }
 
   render() {
@@ -40,7 +40,7 @@ NotFoundRoute.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    homeRoute: selectRoute(state, ROUTE_KEYS.notFoundRoute.reducerKey),
+    notFoundCopy: selectRoute(state, ROUTE_KEYS.notFoundRoute.reducerKey),
   };
 }
 

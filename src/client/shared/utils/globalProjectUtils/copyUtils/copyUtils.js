@@ -1,6 +1,6 @@
 const LANGUAGES = {
-  SV: 'SV',
-  EN: 'EN',
+  sv: 'sv',
+  en: 'en',
 };
 
 function copyFormatter(copy, dynamicValue) {

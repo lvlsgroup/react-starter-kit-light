@@ -1,9 +1,9 @@
 import en_NotFoundRoute from './en_NotFoundRoute';
 import en_HomeRoute from './en_HomeRoute';
 
-const En_all_copy = {
+const En_allCopy = {
   notFoundRoute: en_NotFoundRoute,
   homeRoute: en_HomeRoute,
 };
 
-export default En_all_copy;
+export default En_allCopy;

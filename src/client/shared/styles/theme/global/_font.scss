@@ -8,3 +8,7 @@ $body-font: $font-berlingske-text;
 
 /*Font Sizes*/
 $font-size-base: 100%; // 16px
+
+@function fontSize($size) {
+  @return ($size/16) + rem;
+}

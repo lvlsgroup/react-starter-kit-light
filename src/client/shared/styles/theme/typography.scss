@@ -31,10 +31,6 @@ $lineHeightPairs: (
 //generates classes: weight300, weight400 etc.
 $weights: 300, 400, 500, 600;
 
-@function pxToRem($size) {
-  @return ($size/16) + rem;
-}
-
 .fontBerlingskeCN {
   font-family: $font-berlingske-cn, serif;
 }
@@ -49,11 +45,11 @@ $weights: 300, 400, 500, 600;
 
 @each $pair in $fontSizePairs {
   .fontSize#{nth($pair, 1)}_#{nth($pair, 2)} {
-    font-size: pxToRem(nth($pair, 1));
+    font-size: fontSize(nth($pair, 1));
 
     @if (nth($pair, 1) != nth($pair, 2)) {
       @include bpDesktop() {
-        font-size: pxToRem(nth($pair, 2));
+        font-size: fontSize(nth($pair, 2));
       }
     }
   }
