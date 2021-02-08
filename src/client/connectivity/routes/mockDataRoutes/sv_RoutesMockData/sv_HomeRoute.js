@@ -1,5 +1,5 @@
 const sv_HomeRoute = {
-  mainTitle: 'Startsidans Title',
+  mainTitle: 'Startsidans Titel',
   subTitle: 'Välkommen ${1}, detta är din dashboard',
 };
 
