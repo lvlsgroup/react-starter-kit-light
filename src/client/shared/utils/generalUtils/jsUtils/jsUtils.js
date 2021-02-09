@@ -6,5 +6,3 @@ export function getStringBetweenChars(stringToSlice, lastChar, firstChar) {
     indexOfSlash !== -1 ? indexOfSlash : undefined
   );
 }
-
-export function getPageGlobals(globals, pageGlobals) {}

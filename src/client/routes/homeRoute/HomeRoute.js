@@ -37,7 +37,7 @@ class HomeRoute extends React.Component {
             <p>{copyFormatter(homeRoute.subTitle, 'Lorem')}</p>
             <Button
               className={classNames(theme.btnPrimary, theme.mgt16r)}
-              label={'Primary Styles Button'}
+              label={homeRoute?.actionLabels.save}
             />
           </div>
         </section>

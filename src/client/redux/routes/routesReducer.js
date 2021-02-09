@@ -1,4 +1,9 @@
 import { imSetToObj } from '@lvlsgroup/react-component-lib/src/client/shared/utils/immutableUtils/immutableUtils';
+import { selectGlobals } from '@client/redux/globals/globalsReducer';
+import {
+  imArrayMergeNoDuplicates,
+  imMergeObj,
+} from '@client/shared/utils/generalUtils/immutableUtils/immutableUtils';
 
 export const ROUTES_REDUCER_KEY = 'routesReducer';
 
@@ -21,8 +26,23 @@ export default function(state = defaultState, action = {}) {
   }
 }
 
-export const selectRoute = (state, page) => {
-  const routeData = state[ROUTES_REDUCER_KEY][page];
+export const selectRoutesReducer = (state) => {
+  return state[ROUTES_REDUCER_KEY];
+};
 
-  return state[ROUTES_REDUCER_KEY][page];
+export const selectRoute = (state, route) => {
+  const globals = selectGlobals(state);
+  const routeData = selectRoutesReducer(state)[route];
+
+  const metaTags = imArrayMergeNoDuplicates(
+    globals?.metaTags,
+    routeData?.metaTags
+  );
+
+  const actionLabels = imMergeObj(
+    globals?.actionLabels,
+    routeData?.actionLabels
+  );
+
+  return imMergeObj(routeData, { metaTags, actionLabels });
 };

@@ -1,7 +1,8 @@
-import classNames from 'classnames/bind';
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Switch, withRouter } from 'react-router-dom';
+import classNames from 'classnames/bind';
 import { routeWithSubRoutes } from '@lvlsgroup/react-component-lib/src/client/shared/utils/routerUtils/routerUtils';
 import { getRouteValues } from '@client/routes/mainRoutesUtils';
 import {
@@ -10,8 +11,11 @@ import {
 } from '@client/redux/globals/globalsActions';
 import Footer from '@client/modules/footer/Footer';
 import MainNavbar from '@client/modules/mainNavbar/MainNavbar';
-import { getLanguageCode } from '@client/shared/utils/globalProjectUtils/languageUtils/languageUtils';
-import ErrorBoundary from '../helperComponents/errorBoundary/ErrorBoundary';
+import MetaTags from '@client/modules/metaTags/MetaTags';
+import ErrorBoundary from '@client/helperComponents/errorBoundary/ErrorBoundary';
+import { selectRoute } from '@client/redux/routes/routesReducer';
+import { ROUTE_KEYS } from '@client/connectivity/routes/utilsApiRoutes';
+import { selectGlobals } from '@client/redux/globals/globalsReducer';
 import styles from './appFrame.scss';
 
 const MainRouteSwitch = withRouter(() => {
@@ -40,10 +44,12 @@ class AppFrame extends React.PureComponent {
   }
 
   render() {
+    const { globals } = this.props;
+
     return (
       <ErrorBoundary>
         <div className={styles.appFrame} id="app-container">
-          <Head Head={Head} />
+          <MetaTags metaTags={globals?.metaTags} />
           <MainNavbar className={styles.mainNavbarProp} />
           <MainRouteSwitch />
           <Footer className={styles.footerProp} />
@@ -55,6 +61,15 @@ class AppFrame extends React.PureComponent {
 
 AppFrame.propTypes = {
   location: PropTypes.object,
+  globals: PropTypes.shape({
+    metaTags: PropTypes.array,
+  }),
 };
 
-export default withRouter(AppFrame);
+function mapStateToProps(state) {
+  return {
+    globals: selectGlobals(state),
+  };
+}
+
+export default connect(mapStateToProps)(withRouter(AppFrame));
