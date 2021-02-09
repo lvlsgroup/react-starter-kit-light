@@ -43,6 +43,7 @@ class AppFrame extends React.PureComponent {
     return (
       <ErrorBoundary>
         <div className={styles.appFrame} id="app-container">
+          <Head Head={Head} />
           <MainNavbar className={styles.mainNavbarProp} />
           <MainRouteSwitch />
           <Footer className={styles.footerProp} />

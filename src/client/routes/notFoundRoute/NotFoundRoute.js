@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { ROUTE_KEYS } from '@client/connectivity/routes/utilsApiRoutes';
 import { selectRoute } from '@client/redux/routes/routesReducer';
 import { loadRoute } from '@client/redux/routes/routesActions';
+import { selectGlobals } from '@client/redux/globals/globalsReducer';
 
 class NotFoundRoute extends PureComponent {
   static loadData({ dispatch }) {
@@ -17,22 +18,22 @@ class NotFoundRoute extends PureComponent {
   }
 
   render() {
-    const { notFoundCopy } = this.props;
+    const { notFoundRoute } = this.props;
 
     return (
       <div>
         <Helmet>
           <meta name="robots" content="noindex, nofollow" />
-          <title>{notFoundCopy.mainTitle}</title>
+          <title>{notFoundRoute.mainTitle}</title>
         </Helmet>
-        <h1>{notFoundCopy.mainTitle}</h1>
+        <h1>{notFoundRoute.mainTitle}</h1>
       </div>
     );
   }
 }
 
 NotFoundRoute.propTypes = {
-  notFoundCopy: PropTypes.shape({
+  notFoundRoute: PropTypes.shape({
     mainTitle: PropTypes.string,
   }),
   dispatch: PropTypes.func,
@@ -40,7 +41,8 @@ NotFoundRoute.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    notFoundCopy: selectRoute(state, ROUTE_KEYS.notFoundRoute.reducerKey),
+    notFoundRoute: selectRoute(state, ROUTE_KEYS.notFoundRoute.reducerKey),
+    globals: selectGlobals(state),
   };
 }
 

@@ -22,5 +22,7 @@ export default function(state = defaultState, action = {}) {
 }
 
 export const selectRoute = (state, page) => {
+  const routeData = state[ROUTES_REDUCER_KEY][page];
+
   return state[ROUTES_REDUCER_KEY][page];
 };
