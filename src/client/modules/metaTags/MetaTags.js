@@ -11,13 +11,13 @@ function MetaTags({ metaTags }) {
         const content = metaTag?.content;
 
         if (metaKey === 'title') {
-          return <title>{metaTag?.content}</title>;
+          return <title key={keyValue}>{metaTag?.content}</title>;
         } else if (metaKey) {
           const metaAttributes = {
             [metaKey]: keyValue,
             content: content,
           };
-          return <meta {...metaAttributes} />;
+          return <meta key={keyValue} {...metaAttributes} />;
         } else {
           return null;
         }
