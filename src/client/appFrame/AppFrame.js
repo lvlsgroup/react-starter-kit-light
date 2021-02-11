@@ -13,8 +13,6 @@ import Footer from '@client/modules/footer/Footer';
 import MainNavbar from '@client/modules/mainNavbar/MainNavbar';
 import MetaTags from '@client/modules/metaTags/MetaTags';
 import ErrorBoundary from '@client/helperComponents/errorBoundary/ErrorBoundary';
-import { selectRoute } from '@client/redux/routes/routesReducer';
-import { ROUTE_KEYS } from '@client/connectivity/routes/utilsApiRoutes';
 import { selectGlobals } from '@client/redux/globals/globalsReducer';
 import styles from './appFrame.scss';
 
