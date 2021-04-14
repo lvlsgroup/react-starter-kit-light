@@ -1,0 +1,21 @@
+$header-height: 70px;
+$min-footer-height: 200px;
+
+.appFrame {
+  display: flex;
+  flex-direction: column;
+}
+
+.mainNavbarProp {
+  height: $header-height;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - #{$header-height + $min-footer-height});
+}
+
+.footerProp {
+  min-height: $min-footer-height;
+}

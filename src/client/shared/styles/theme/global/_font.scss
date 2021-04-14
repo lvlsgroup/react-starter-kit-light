@@ -1,0 +1,14 @@
+@use "colors" as *;
+@use "layout" as *;
+
+$font-berlingske-cn: 'Berlingske Serif Condensed', serif;
+$font-berlingske-text: 'Berlingske Serif Text', serif;
+$font-good-sans: 'Good Sans', sans-serif;
+$body-font: $font-berlingske-text;
+
+/*Font Sizes*/
+$font-size-base: 100%; // 16px
+
+@function fontSize($size) {
+  @return ($size/16) + rem;
+}

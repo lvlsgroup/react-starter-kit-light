@@ -52,7 +52,7 @@ If you set up using another editor please document the process here.
 ## Guidelines
 General principles:
 1. Dont overengineer your components with if else statements, rather create two components.
-2. It should be easy to know which code and redux-state is shared across many components/pages/containers.
+2. It should be easy to know which code and redux-state is shared across many components/routes/containers.
 3. Use themeStyle for all html elements which is specified in the design guidelines (Titles, BreadText, Buttons, etx..).
 4. Make your code as pure as possible. `pure vs impure functions javascript`. 
     - The splice method (impure) changes the original array and slice (pure) method doesn’t change the original array.

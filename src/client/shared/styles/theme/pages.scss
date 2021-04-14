@@ -1,0 +1,13 @@
+$max-width-md: 700px;
+$mobile-padding-md: 8px;
+
+.contentContainerMd {
+  $max-width-with-padding: $max-width-md + ($mobile-padding-md * 2);
+
+  width: 100%;
+  max-width: $max-width-with-padding;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: $mobile-padding-md;
+  padding-right: $mobile-padding-md;
+}

@@ -1,0 +1,111 @@
+@use "global/layout" as *;
+@use "global/colors" as *;
+@use "global/font" as *;
+
+/* HOW TO:
+
+1: Add all values (font size, line height, etc) to the sass lists below. This will be generated into atomic classes that can be composes in typography-classes.
+2: Create a class for each typography style from the design which used the composes function from css modules
+  Ex: composes: weight500 fontSize14_16 lineHeight12_13;
+3: Done! Check the css files and you will see optimised atomic css classes.
+*/
+
+// Font size pairs is a list of mobile:desktop size pairs. (Mob:Des, Mob:Des ... )
+//generates classes: fontSize14_16, fontSize36_64 etc
+$fontSizePairs: (
+  (36, 64),
+  (16, 20),
+  (16, 16),
+);
+
+//List of pairs. Each value need to have quotes so it is treated as a string. Values should be unitless which is best practice in css for lineheight.
+// Ex: (("1.2", "1.3"), ("1.4", "1.5")).
+//generates classes: lineHeight12_13, lineHeight14_15 (dots are removed).
+$lineHeightPairs: (
+  ('1.2', '1.2'),
+  ('1.4', '1.5'),
+  ('1.56', '1.56'),
+);
+
+//Ex: $weights: 300, 400, 500, 600;
+//generates classes: weight300, weight400 etc.
+$weights: 300, 400, 500, 600;
+
+.fontBerlingskeCN {
+  font-family: $font-berlingske-cn, serif;
+}
+
+.fontBerlingskeText {
+  font-family: $font-berlingske-text, serif;
+}
+
+.fontGoodSans {
+  font-family: $font-good-sans, sans-serif;
+}
+
+@each $pair in $fontSizePairs {
+  .fontSize#{nth($pair, 1)}_#{nth($pair, 2)} {
+    font-size: fontSize(nth($pair, 1));
+
+    @if (nth($pair, 1) != nth($pair, 2)) {
+      @include bpDesktop() {
+        font-size: fontSize(nth($pair, 2));
+      }
+    }
+  }
+}
+
+@function str-replace($string, $search, $replace: '') {
+  $index: str-index($string, $search);
+
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace +
+      str-replace(
+        str-slice($string, $index + str-length($search)),
+        $search,
+        $replace
+      );
+  }
+
+  @return $string;
+}
+
+@each $pair in $lineHeightPairs {
+  .lineHeight#{str-replace(nth($pair, 1), '.')}_#{str-replace(nth($pair, 2), ".")} {
+    line-height: unquote(nth($pair, 1));
+
+    @if (nth($pair, 1) != nth($pair, 2)) {
+      @include bpDesktop() {
+        line-height: unquote(nth($pair, 2));
+      }
+    }
+  }
+}
+
+@each $weight in $weights {
+  .weight#{$weight} {
+    font-weight: $weight;
+  }
+}
+
+.textHeadline1 {
+  composes: fontBerlingskeCN fontSize36_64 lineHeight12_12 weight500;
+}
+
+.textBody1 {
+  composes: fontBerlingskeText fontSize16_20 lineHeight14_15 weight400;
+}
+
+/* Links */
+.linkDefault {
+  composes: fontBerlingskeText fontSize16_16 lineHeight156_156 weight400;
+  text-decoration: underline;
+
+  &:hover {
+    font-weight: 500;
+  }
+
+  &:disabled {
+    color: $color-grey-dark;
+  }
+}

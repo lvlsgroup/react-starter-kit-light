@@ -1,0 +1,17 @@
+@font-face {
+  font-family: 'Good Sans';
+  src: url("@client/shared/styles/fonts/goodSans/GoodSans-Bold.eot") format('embedded-opentype');
+  src: url("@client/shared/styles/fonts/goodSans/GoodSans-Bold.woff") format('woff');
+  src: url("@client/shared/styles/fonts/goodSans/GoodSans-Bold.woff2") format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Good Sans';
+  src: url("@client/shared/styles/fonts/goodSans/GoodSans-Regular.eot") format('embedded-opentype');
+  src: url("@client/shared/styles/fonts/goodSans/GoodSans-Regular.woff") format('woff');
+  src: url("@client/shared/styles/fonts/goodSans/GoodSans-Regular.woff2") format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}

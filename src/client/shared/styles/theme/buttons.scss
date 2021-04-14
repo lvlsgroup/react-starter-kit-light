@@ -1,0 +1,55 @@
+.border1pxBlack {
+  border: 1px solid $color-black;
+}
+
+.border1pxWhite {
+  border: 1px solid $color-white;
+}
+
+.bgTransparent {
+  background-color: transparent;
+}
+
+.bgWhite {
+  background-color: $color-white;
+}
+
+.bgBlack {
+  background-color: $color-black;
+}
+
+.btnPrimary {
+  composes: bgWhite border1pxBlack;
+
+  font-family: $font-good-sans;
+  font-size: pxToRem(12);
+  line-height: 1.17;
+  text-align: center;
+  letter-spacing: 0.02rem;
+  text-transform: uppercase;
+  color: $color-black;
+  padding: 0 32px;
+  height: 42px;
+
+  &:hover {
+    color: $color-white;
+    background-color: $color-black;
+    font-weight: 500;
+  }
+
+  &:active {
+    color: $color-white;
+    background-color: $color-grey-darker;
+    border: 1px solid $color-grey-darker;
+  }
+
+  &:focus {
+    color: $color-white;
+    background-color: $color-black;
+  }
+
+  &:disabled {
+    color: $color-grey-medium;
+    background: $color-grey-light;
+  }
+}

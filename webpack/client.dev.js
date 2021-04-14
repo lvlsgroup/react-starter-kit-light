@@ -5,13 +5,17 @@ const WriteFilePlugin = require('write-file-webpack-plugin'); // here so you can
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+const { ALIAS } = require('./shared');
+const { injectGlobalSassHelperToScssFiles } = require('./shared');
 
 const res = (p) => path.resolve(__dirname, p);
 const entryFile = res('../src/client/client.js');
 const outputFolder = res('../_build_dev/client');
 const outputFile = '[name].js';
 
-const BUILT_ASSETS_FOLDER = '/levels-assets/';
+const BUILT_ASSETS_FOLDER = '/project-assets/';
+
+ALIAS['react-dom'] = '@hot-loader/react-dom';
 
 module.exports = {
   name: 'client',
@@ -56,10 +60,7 @@ module.exports = {
           {
             loader: 'sass-loader',
             options: {
-              data:
-                `@import "${res(
-                  '../src/client/shared/styles/globals.scss'
-                )}";` + ` $node-env: ${process.env.NODE_ENV};`,
+              additionalData: injectGlobalSassHelperToScssFiles,
             },
           },
         ],
@@ -75,19 +76,42 @@ module.exports = {
         ],
       },
       {
-        test: /\.(woff(2)?|ttf|eot)|fa-solid-900\.svg$/,
+        test: /\.(woff(2)?|ttf|eot|otf)|fa-solid-900\.svg$/,
         use: [
           {
             loader: 'file-loader',
             options: {
-              name: '[name]_[hash].[ext]',
+              name: '[name]_[hash:4].[ext]',
               outputPath: 'font-icons/',
             },
           },
         ],
       },
       {
-        test: /^(?!fa-solid-900).*\.(png|jpg|gif|svg|jpeg)$/,
+        test: /^(?!fa-solid-900).*\.(png|jpg|gif|jpeg|mp4)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name]_[hash].[ext]',
+              outputPath: 'images/',
+            },
+          },
+        ],
+      },
+      {
+        test: /\.svg$/,
+        issuer: {
+          test: /\.jsx?$/,
+        },
+        use: [
+          {
+            loader: '@svgr/webpack',
+          },
+        ],
+      },
+      {
+        test: /\.svg$/,
         use: [
           {
             loader: 'file-loader',
@@ -103,15 +127,7 @@ module.exports = {
   resolve: {
     extensions: ['.js'],
     modules: [path.resolve(__dirname, '..', 'src', 'client'), 'node_modules'],
-    alias: {
-      '@client': path.resolve(__dirname, '..', 'src', 'client'),
-      '@server': path.resolve(__dirname, '..', 'src', 'server'),
-      '@rc-lib-client': '@lvlsgroup/react-component-lib/src/client',
-      '@rc-lib-server': '@lvlsgroup/react-component-lib/src/server',
-      'lvlsgroup-components':
-        '@lvlsgroup/react-component-lib/src/client/components',
-      'react-dom': '@hot-loader/react-dom',
-    },
+    alias: ALIAS,
   },
   optimization: {
     runtimeChunk: {
@@ -128,6 +144,9 @@ module.exports = {
     },
   },
   plugins: [
+    new webpack.IgnorePlugin({
+      resourceRegExp: /\.md$/,
+    }),
     new CaseSensitivePathsPlugin(),
     new WriteFilePlugin(),
     new ExtractCssChunks({ hot: true, reloadAll: true, cssModules: true }),

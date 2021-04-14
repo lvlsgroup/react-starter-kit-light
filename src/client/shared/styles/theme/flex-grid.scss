@@ -1,0 +1,26 @@
+@use "global/grid" as *;
+
+._sharedGrid {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  word-break: break-word;
+}
+
+.grid12 {
+  composes: _sharedGrid;
+  @include grid(30px, 30px);
+
+  > * {
+    @include responsiveAndFluidItem(30px, 30px, 100%, 50%, 50%, 50%, 50%);
+  }
+}
+
+.grid3 {
+  composes: _sharedGrid;
+  @include grid(8px, 8px);
+
+  > * {
+    @include responsiveAndFluidItem(8px, 8px, 33.3333333%, 33.3333333%, 33.3333333%, 33.3333333%, 33.3333333%);
+  }
+}

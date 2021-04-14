@@ -1,0 +1,9 @@
+.fluidImageContainer {
+  position: relative;
+  overflow: hidden;
+
+  .fluidImage {
+    width: 100%;
+    position: absolute;
+  }
+}

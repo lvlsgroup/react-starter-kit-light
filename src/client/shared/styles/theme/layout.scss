@@ -1,0 +1,149 @@
+@function desktopResizer($size) {
+  @return ($size * 1.5);
+}
+
+/* Top spacing */
+.mgt2 { margin-top: $mgt2; }
+.mgt4 { margin-top: $mgt4; }
+.mgt8 { margin-top: $mgt8; }
+.mgt12 { margin-top: $mgt12; }
+.mgt16 { margin-top: $mgt16; }
+.mgt24 { margin-top: $mgt24; }
+.mgt32 { margin-top: $mgt32; }
+.mgt40 { margin-top: $mgt40; }
+.mgt48 { margin-top: $mgt48; }
+.mgt64 { margin-top: $mgt64; }
+.mgt72 { margin-top: $mgt72; }
+.mgt96 { margin-top: $mgt96; }
+.mgt160 { margin-top: $mgt160; }
+
+.mgt2r {
+  composes: mgt2;
+
+  @include bpDesktop() {
+    margin-top: desktopResizer(desktopResizer($mgt2));
+  }
+}
+
+.mgt4r {
+  composes: mgt4;
+
+  @include bpDesktop() {
+    margin-top: desktopResizer($mgt4);
+  }
+}
+
+.mgt8r {
+  composes: mgt8;
+
+  @include bpDesktop() {
+    margin-top: desktopResizer($mgt8);
+  }
+}
+
+.mgt12r {
+  composes: mgt12;
+
+  @include bpDesktop() {
+    margin-top: desktopResizer($mgt12);
+  }
+}
+
+.mgt16r {
+  composes: mgt16;
+
+  @include bpDesktop() {
+    margin-top: desktopResizer($mgt16);
+  }
+}
+
+.mgt24r {
+  composes: mgt24;
+
+  @include bpDesktop() {
+    margin-top: desktopResizer($mgt24);
+  }
+}
+
+.mgt32r {
+  composes: mgt32;
+
+  @include bpDesktop() {
+    margin-top: desktopResizer($mgt32);
+  }
+}
+
+.mgt40r {
+  composes: mgt40;
+
+  @include bpDesktop() {
+    margin-top: desktopResizer($mgt40);
+  }
+}
+
+.mgt48r {
+  composes: mgt48;
+
+  @include bpDesktop() {
+    margin-top: desktopResizer($mgt48);
+  }
+}
+
+.mgt64r {
+  composes: mgt64;
+
+  @include bpDesktop() {
+    margin-top: desktopResizer($mgt64);
+  }
+}
+
+.mgt72r {
+  composes: mgt72;
+
+  @include bpDesktop() {
+    margin-top: desktopResizer($mgt72);
+  }
+}
+
+.mgt96r {
+  composes: mgt96;
+
+  @include bpDesktop() {
+    margin-top: desktopResizer($mgt96);
+  }
+}
+
+.mgt160r {
+  composes: mgt160;
+
+  @include bpDesktop() {
+    margin-top: desktopResizer($mgt160);
+  }
+}
+
+/* Left spacing */
+.mgl16 {
+  margin-left: $mgl16;
+}
+
+.mgl30rfc {
+  margin-left: $mgl30;
+
+  &:first-child {
+    margin-left: 0;
+  }
+}
+
+/* Device helpers */
+
+.hideOnMobile {
+  @include onlyMobile() {
+    display: none !important;
+  }
+}
+
+.hideOnDesktop {
+  @include bpDesktop() {
+    display: none !important;
+  }
+}

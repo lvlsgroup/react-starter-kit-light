@@ -5,10 +5,10 @@ import { Router } from 'react-router-dom';
 import { CookiesProvider } from 'react-cookie';
 import { Provider } from 'react-redux';
 import { hydrate } from 'react-dom';
+import history from '@lvlsgroup/react-component-lib/src/client/shared/utils/history';
 import LazyLoadContext from '@client/helperComponents/context/LazyLoadContext';
-import history from '@client/shared/utils/history';
 import configureStore from './redux/configureStore';
-import AppFrame from './containers/appFrame/AppFrame';
+import AppFrame from './appFrame/AppFrame';
 import 'shared/styles/base.scss';
 
 // Scroll to top on history change

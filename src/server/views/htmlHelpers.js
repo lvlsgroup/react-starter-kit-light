@@ -1,7 +1,11 @@
 import { html } from 'common-tags';
 
-export const get500 = () => {
-  return html`
+const isProd = process.env.NODE_ENV === 'production';
+
+export const get500 = (status, error = '') => {
+  const errorTitle = `${status} ERROR`;
+  const errorStr = isProd ? error : error.stack || error;
+  return `
     <!DOCTYPE html>
     <html lang="en">
       <head>
@@ -10,9 +14,11 @@ export const get500 = () => {
           name="viewport"
           content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no"
         />
+        <title>${errorTitle}</title>
       </head>
       <body>
-        <p>500 ERROR</p>
+        <h1>${errorTitle}</h1>
+        <pre>${errorStr}</pre>
       </body>
     </html>
   `;

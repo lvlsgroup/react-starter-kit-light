@@ -1,0 +1,57 @@
+@mixin box-sizing($type: border-box) {
+  box-sizing: $type;
+  -moz-box-sizing: $type;
+  -webkit-box-sizing: $type;
+}
+
+* {
+  @include box-sizing(border-box);
+}
+*:before,
+*:after {
+  @include box-sizing(border-box);
+}
+
+html {
+  font-family: $body-font;
+  font-size: 100%;
+
+  -ms-text-size-adjust: 100%; /* 2 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,body,h1,h2,h3,h4,h5,h6,
+p,blockquote,pre,
+dl,dd,
+form,
+table,th,td,caption,
+ul, ol,
+hr, figure, button {
+  margin:0;
+  padding:0;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+a {
+  text-decoration: none;
+  color: #000000;
+
+  &:visited {
+    color: #000000;
+  }
+
+  &:link {
+    color: #000000;
+  }
+
+  &:hover {
+    color: #5f6263;
+  }
+}

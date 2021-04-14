@@ -1,0 +1,56 @@
+
+@font-face {
+    font-family: 'Berlingske Serif Extracondensed';
+    src: url('@client/shared/styles/fonts/berlingske/BerlingskeSerifXCn-Rg.eot');
+    src: url('@client/shared/styles/fonts/berlingske/BerlingskeSerifXCn-Rg.eot?#iefix') format('embedded-opentype'), url('@client/shared/styles/fonts/berlingske/BerlingskeSerifXCn-Rg.woff2') format('woff2'), url('@client/shared/styles/fonts/berlingske/BerlingskeSerifXCn-Rg.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Berlingske Serif Condensed';
+    src: url('@client/shared/styles/fonts/berlingske/BerlingskeSerifCn-MdIt.eot');
+    src: url('@client/shared/styles/fonts/berlingske/BerlingskeSerifCn-MdIt.eot?#iefix') format('embedded-opentype'), url('@client/shared/styles/fonts/berlingske/BerlingskeSerifCn-MdIt.woff2') format('woff2'), url('@client/shared/styles/fonts/berlingske/BerlingskeSerifCn-MdIt.woff') format('woff');
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Berlingske Serif Condensed';
+    src: url('@client/shared/styles/fonts/berlingske/BerlingskeSerifCn-Md.eot');
+    src: url('@client/shared/styles/fonts/berlingske/BerlingskeSerifCn-Md.eot?#iefix') format('embedded-opentype'), url('@client/shared/styles/fonts/berlingske/BerlingskeSerifCn-Md.woff2') format('woff2'), url('@client/shared/styles/fonts/berlingske/BerlingskeSerifCn-Md.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Berlingske Serif Text';
+    src: url('@client/shared/styles/fonts/berlingske/BerlingskeSerifText-Regular.eot');
+    src: url('@client/shared/styles/fonts/berlingske/BerlingskeSerifText-Regular.eot?#iefix') format('embedded-opentype'), url('@client/shared/styles/fonts/berlingske/BerlingskeSerifText-Regular.woff2') format('woff2'), url('@client/shared/styles/fonts/berlingske/BerlingskeSerifText-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Berlingske Serif Text';
+    src: url('@client/shared/styles/fonts/berlingske/BerlingskeSerifText-Italic.eot');
+    src: url('@client/shared/styles/fonts/berlingske/BerlingskeSerifText-Italic.eot?#iefix') format('embedded-opentype'), url('@client/shared/styles/fonts/berlingske/BerlingskeSerifText-Italic.woff2') format('woff2'), url('@client/shared/styles/fonts/berlingske/BerlingskeSerifText-Italic.woff') format('woff');
+    font-weight: 400;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Berlingske Serif Text';
+    src: url('@client/shared/styles/fonts/berlingske/BerlingskeSerifText-Demibold.eot');
+    src: url('@client/shared/styles/fonts/berlingske/BerlingskeSerifText-Demibold.eot?#iefix') format('embedded-opentype'), url('@client/shared/styles/fonts/berlingske/BerlingskeSerifText-Demibold.woff2') format('woff2'), url('@client/shared/styles/fonts/berlingske/BerlingskeSerifText-Demibold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Berlingske Serif Text';
+    src: url('@client/shared/styles/fonts/berlingske/BerlingskeSerifText-DemiboldItalic.eot');
+    src: url('@client/shared/styles/fonts/berlingske/BerlingskeSerifText-DemiboldItalic.eot?#iefix') format('embedded-opentype'), url('@client/shared/styles/fonts/berlingske/BerlingskeSerifText-DemiboldItalic.woff2') format('woff2'), url('@client/shared/styles/fonts/berlingske/BerlingskeSerifText-DemiboldItalic.woff') format('woff');
+    font-weight: 600;
+    font-style: italic;
+}

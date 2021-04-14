@@ -3,13 +3,15 @@ const webpack = require('webpack');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const TerserPlugin = require('terser-webpack-plugin');
+const { ALIAS } = require('./shared');
+const { injectGlobalSassHelperToScssFiles } = require('./shared');
 
 const res = (p) => path.resolve(__dirname, p);
 const entryFile = res('../src/client/client.js');
 const outputFolder = path.join(__dirname, '../', '_build_prod', 'client');
 const outputFileName = '[name].[chunkhash].js';
 
-const BUILT_ASSETS_FOLDER = '/levels-assets/';
+const BUILT_ASSETS_FOLDER = '/project-assets/';
 
 module.exports = {
   name: 'client',
@@ -52,10 +54,7 @@ module.exports = {
           {
             loader: 'sass-loader',
             options: {
-              data:
-                `@import "${res(
-                  '../src/client/shared/styles/globals.scss'
-                )}";` + ` $node-env: ${process.env.NODE_ENV};`,
+              additionalData: injectGlobalSassHelperToScssFiles,
             },
           },
         ],
@@ -71,7 +70,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(woff(2)?|ttf|eot)|fa-solid-900\.svg$/,
+        test: /\.(woff(2)?|ttf|eot|otf)|fa-solid-900\.svg$/,
         use: [
           {
             loader: 'file-loader',
@@ -83,7 +82,30 @@ module.exports = {
         ],
       },
       {
-        test: /^(?!fa-solid-900).*\.(png|jpg|gif|svg|jpeg)$/,
+        test: /^(?!fa-solid-900).*\.(png|jpg|gif|jpeg|mp4)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name]_[hash].[ext]',
+              outputPath: 'images/',
+            },
+          },
+        ],
+      },
+      {
+        test: /\.svg$/,
+        issuer: {
+          test: /\.jsx?$/,
+        },
+        use: [
+          {
+            loader: '@svgr/webpack',
+          },
+        ],
+      },
+      {
+        test: /\.svg$/,
         use: [
           {
             loader: 'file-loader',
@@ -99,14 +121,7 @@ module.exports = {
   resolve: {
     extensions: ['.js'],
     modules: [path.resolve(__dirname, '..', 'src', 'client'), 'node_modules'],
-    alias: {
-      '@client': path.resolve(__dirname, '..', 'src', 'client'),
-      '@server': path.resolve(__dirname, '..', 'src', 'server'),
-      '@rc-lib-client': '@lvlsgroup/react-component-lib/src/client',
-      '@rc-lib-server': '@lvlsgroup/react-component-lib/src/server',
-      'lvlsgroup-components':
-        '@lvlsgroup/react-component-lib/src/client/components',
-    },
+    alias: ALIAS,
   },
   optimization: {
     minimize: true,
@@ -138,6 +153,9 @@ module.exports = {
     },
   },
   plugins: [
+    new webpack.IgnorePlugin({
+      resourceRegExp: /\.md$/,
+    }),
     new ExtractCssChunks({
       filename: '[name].[contenthash].css',
     }),
@@ -151,7 +169,6 @@ module.exports = {
         GITHUB_PERSONAL_ACCESS_TOKEN: JSON.stringify(
           process.env.GITHUB_PERSONAL_ACCESS_TOKEN
         ),
-        API_URL: JSON.stringify(process.env.API_URL),
         APP_PORT: JSON.stringify(process.env.APP_PORT),
       },
     }),

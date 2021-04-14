@@ -22,20 +22,29 @@ const logFormat = function(tokens, req, res) {
   const xRequestToken = req.headers && req.headers['x-request-token'];
   const xForwardedHost = req.headers && req.headers['x-forwarded-host'];
   const hostname = tokens.hostname && tokens.hostname(req, res);
+  const isDevelopment = process.env.NODE_ENV === 'development';
 
-  return [
-    `ID=${req.id}`,
-    new Date().toUTCString(),
-    `method=${tokens.method(req, res)}`,
-    `url=${tokens.url(req, res)}`,
-    `status=${tokens.status(req, res)}`,
-    `content_length=${tokens.res(req, res, 'content-length')}`,
-    `response_time=${tokens['response-time'](req, res)} ms`,
-    `hostname=${hostname}`,
-    `x_forwarded_host=${xForwardedHost}`,
-    `node_env=${process.env.NODE_ENV}`,
-    xRequestToken && `x-request-token=${xRequestToken}`,
-  ].join('\t');
+  if (isDevelopment) {
+    return [
+      `status=${tokens.status(req, res)}`,
+      `url=${tokens.url(req, res)}`,
+      `response_time=${tokens['response-time'](req, res)} ms`,
+    ].join('\t');
+  } else {
+    return [
+      `ID=${req.id}`,
+      new Date().toUTCString(),
+      `method=${tokens.method(req, res)}`,
+      `url=${tokens.url(req, res)}`,
+      `status=${tokens.status(req, res)}`,
+      `content_length=${tokens.res(req, res, 'content-length')}`,
+      `response_time=${tokens['response-time'](req, res)} ms`,
+      `hostname=${hostname}`,
+      `x_forwarded_host=${xForwardedHost}`,
+      `node_env=${process.env.NODE_ENV}`,
+      xRequestToken && `x-request-token=${xRequestToken}`,
+    ].join('\t');
+  }
 };
 
 const app = express();
@@ -48,9 +57,29 @@ app.use(errorHandler);
 // Logging Setup
 app.use(assignId);
 app.use(morgan(logFormat));
+app.use(stripTrailingChar('/'));
 // END Logging
 app.use(cookiesMiddleware());
 
 module.exports = {
   app,
 };
+
+function stripTrailingChar(char) {
+  return (req, res, next) => {
+    const url = req.originalUrl;
+    const reg = new RegExp(`${char}$`);
+
+    // For the homepage the originalUrl is / and since we can't
+    // redirect to an empty url we just move on.
+    if (url === '/') {
+      return next();
+    } else if (url.match(reg)) {
+      const newUrl = url.replace(reg, '');
+
+      return res.redirect(301, newUrl);
+    }
+
+    return next();
+  };
+}
