@@ -48,7 +48,7 @@ jobs:
             echo ${GOOGLE_AUTH} > ${HOME}/gcp-key.json
             docker build --rm=false -t eu.gcr.io/${GCP_PROJECT}/${IMAGE_NAME}:latest --build-arg github_token=${GITHUB_PERSONAL_ACCESS_TOKEN} .
             gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
-            gcloud auth configure-docker
+            gcloud auth configure-docker --quiet
             docker push eu.gcr.io/${GCP_PROJECT}/${IMAGE_NAME}:latest | sed -e 's/.*sha256:\(.*\) size.*/\1/' -e 'tx' -e 'd' -e ':x' > hash.txt
 
       - run:
